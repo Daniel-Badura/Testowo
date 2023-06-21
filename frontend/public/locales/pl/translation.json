@@ -1,0 +1,207 @@
+{
+  "address":"Adres",
+  "back": "Powrót",
+  "brand": "Marka",
+  "category": "Kategoria",
+  "changeLanguage": "Zmień język",
+  "changePassword": "Zmień Hasło",
+  "checkoutButton": "Zamówienie",
+  "countInStock": "Liczba sztuk w magazynie",
+  "continue":"Kontynuuj",
+  "delete": "Usuń",
+  "delivered": "Dostarczone",
+  "description": "Opis",
+  "edit": "Edytuj",
+  "emailAddress": "Adres e-mail",
+  "emptyCartMessage": "Twój koszyk jest pusty",
+  "featured": "Polecane",
+  "fullName": "Imię i nazwisko",
+  "headNote": "Prosimy pamiętać, że ta strona jest przeznaczona wyłącznie do celów prezentacyjnych i powinna być używana rozważnie do jej zamierzonego celu",
+  "image": "Obraz",
+  "inStock": "Ilość",
+  "items": "Produkty",
+  "method":"Metoda",
+  "name": "Nazwa",
+  "notDelivered": "Nie dostarczono",
+  "notPaid": "Nie opłacono",
+  "paid": "Opłacono",
+  "paymentMethod":"Metoda płatności",
+  "phoneNumber": "Numer telefonu",
+  "price": "Cena",
+  "product": "Produkt",
+  "products": "Produkty",
+  "rating": "Ocena",
+  "register":"Rejestracja",
+  "return": "Powrót",
+  "search": "Szukaj",
+  "signIn": "Zaloguj się",
+  "shipping": "Dostawa",
+  "shoppingCart": "Koszyk",
+  "subtotal": "Suma częściowa",
+  "tax": "Podatek",
+  "topRated": "Najlepiej oceniane",
+  "total": "Suma",
+  "update": "Aktualizuj",
+  "checkout": {
+    "shipping": "Dostawa",
+    "payment": "Płatność",
+    "placeOrder": "Złóż zamówienie",
+    "checkout": "Zamówienie"
+  },
+  "languageDropdown": {
+    "changeLanguage": "Zmień język"
+  },
+  "header": {
+    "websklep": "WebSklep",
+    "cart": "Koszyk",
+    "admin": "ADMIN",
+    "usersList": "Lista użytkowników",
+    "products": "Produkty",
+    "orders": "Zamówienia",
+    "emailVerification": "Weryfikacja e-mail",
+    "profile": "Profil",
+    "myOrders": "Moje zamówienia",
+    "accountSettings": "Ustawienia konta",
+    "logout": "Wyloguj się",
+    "signIn": "Zaloguj się"
+  },
+
+  "loader": {
+    "loading": "Ładowanie ..."
+  },
+  "productCarousel": {
+    "topRated": "Najlepiej oceniane",
+    "featured": "Polecane"
+  },
+  "searchBox": {
+    "placeholder": "Szukaj produktów...",
+    "search": "Szukaj"
+  },
+  "cartScreen": {
+    "title": "Koszyk",
+    "emptyCartMessage": "Twój koszyk jest pusty",
+    "returnButton": "Powrót",
+    "subtotal": "Suma częściowa",
+    "checkoutButton": "Zapłać"
+  },
+  "editProductScreen": {
+    "return": "Powrót",
+    "editProduct": "Edytuj produkt",
+    "name": "Nazwa",
+    "price": "Cena",
+    "category": "Kategoria",
+    "description": "Opis",
+    "brand": "Marka"
+  },
+  "editUserScreen": {
+    "return": "Powrót",
+    "editUser": "Edytuj użytkownika",
+    "name": "Imię",
+    "lastname": "Nazwisko",
+    "email": "Adres e-mail",
+    "phone": "Numer telefonu",
+    "update": "Zaktualizuj"
+  },
+
+  "homeScreen": {
+    "back": "Powrót"
+  },
+  "loginScreen": {
+    "back": "Powrót"
+  },
+  "myOrdersScreen": {
+    "myOrders":"Moje zamówienia"
+  },
+  "orderListScreen": {
+    "allOrders": "Wszystkie zamówienia"
+  },
+  "orderScreen": {
+    "orderItems": "Elementy zamówienia",
+    "orderEmpty": "Twoje zamówienie jest puste",
+    "orderSummary": "Podsumowanie zamówienia",
+    "markDelivered": "Oznacz jako dostarczone"
+  },
+  "paymentScreen": {
+    "paymentMethod": "Metoda płatności",
+    "selectMethod": "Wybierz metodę"
+  },
+  "placeOrderScreen": {
+    "cartEmpty" : "Twój koszyk jest pusty",
+    "orderSummary":"Podsumowanie zamówienia",
+    "submitOrder": "Zamów"
+  },
+  "productListScreen": {
+    "back": "Powrót"
+  },
+  "productScreen": {
+    "price":"Cena",
+    "description":"Opis",
+    "quantity":"Ilość",
+    "addToCart": "Dodaj do koszyka",
+    "reviews": "Opinie",
+    "noReviews": "Brak opinii",
+    "writeReview": "Napisz opinię",
+    "reviewSubmitted": "Opinia została dodana pomyślnie",
+    "comment": "Komentarz",
+    "submit":"Prześlij"
+},
+"profileScreen": {
+  "name":"Imię",
+  "lastname":"Nazwisko",
+  "emailAddress":"Adres e-mail",
+  "phoneNumber":"Numer telefonu",
+  "haveAccount": "Masz już konto?",
+  "password":"Hasło",
+  "update":"Aktualizuj"
+},
+"registerScreen": {
+  "back": "Powrót",
+  "name":"Imię",
+  "lastname":"Nazwisko",
+  "emailAddress":"Adres e-mail",
+  "phoneNumber":"Numer telefonu",
+  "haveAccount": "Masz już konto?",
+  "password":"Hasło",
+  "confirmPassword": "Potwierdź hasło"
+},
+"shippingScreen": {
+  "back": "Powrót",
+  "requestInvoice": "Poproś o fakturę",
+  "companyName": "Nazwa firmy",
+  "vatNumber": "Numer VAT",
+  "address": "Adres",
+  "city": "Miasto",
+  "postalCode": "Kod pocztowy",
+  "country": "Kraj",
+  "submit": "Wyślij"
+
+},
+"userAccountSettingsScreen": {
+  "accountSettings":"Ustawienia konta",
+  "back": "Powrót",
+  "profileUpdated": "Profil został pomyślnie zaktualizowany",
+  "emailAddress": "Adres e-mail",
+  "oldPassword" : "Stare hasło",
+  "password": "Hasło",
+  "newPassword": "Nowe hasło",
+  "confirmNewPassword": "Potwierdź nowe hasło",
+  "update":"Aktualizuj",
+  "removeAccount":"Usuń konto"    
+},
+"usersListScreen": {
+  "users": "Użytkownicy",
+  "name": "Imię",
+  "lastname": "Nazwisko",
+  "dateCreated": "Data utworzenia",
+  "back": "Powrót"
+},
+"verificationScreen": {
+  "verify": "Zweryfikuj swój adres e-mail:",
+  "enterCode": "Wpisz kod weryfikacyjny wysłany na Twój adres e-mail:",
+  "submit": "Wyślij"
+},
+
+"dictionary": {
+  "return": "Powrót"
+}
+}

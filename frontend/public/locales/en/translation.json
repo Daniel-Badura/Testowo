@@ -1,0 +1,208 @@
+{
+  "address":"Address",
+  "back": "Back",
+  "brand": "Brand",
+  "category": "Category",
+  "changeLanguage": "Change Language",
+  "changePassword": "Change Password",
+  "checkoutButton": "Checkout",
+  "countInStock": "Count in Stock",
+  "continue":"Continue",
+  "delete": "Delete",
+  "delivered": "Delivered",
+  "description": "Description",
+  "edit": "Edit",
+  "emailAddress": "Email Address",
+  "emptyCartMessage": "Your cart is empty",
+  "featured": "Featured",
+  "fullName": "Full Name",
+  "headNote": "Please note that this website is intended solely for presentation purposes and should be used judiciously for its intended purpose",
+  "image": "Image",
+  "inStock": "In Stock",
+  "items": "Items",
+  "method":"Method",
+  "name": "Name",
+  "notDelivered": "Not Delivered",
+  "notPaid": "Not Paid",
+  "paid": "Paid",
+  "paymentMethod":"Payment Method",
+  "phoneNumber": "Phone Number",
+  "price": "Price",
+  "product": "Product",
+  "products": "Products",
+  "rating": "Rating",
+  "register":"Register",
+  "return": "Return",
+  "search": "Search",
+  "signIn": "Sign in",
+  "shipping": "Shipping",
+  "shoppingCart": "Shopping Cart",
+  "subtotal": "Subtotal",
+  "tax": "Tax",
+  "topRated": "Top Rated",
+  "total": "Total",
+  "update": "Update",
+  "checkout": {
+    "shipping": "Shipping",
+    "payment": "Payment",
+    "placeOrder": "Place Order",
+    "checkout": "Checkout"
+  },
+  "languageDropdown": {
+    "changeLanguage": "Change Language"
+  },
+  "header": {
+    "websklep": "WebSklep",
+    "cart": "Cart",
+    "admin": "ADMIN",
+    "usersList": "Users List",
+    "products": "Products",
+    "orders": "Orders",
+    "emailVerification": "Email Verification",
+    "profile": "Profile",
+    "myOrders": "My Orders",
+    "accountSettings": "Account Settings",
+    "logout": "Logout",
+    "signIn": "Sign in"
+  },
+
+  "loader": {
+    "loading": "Loading ..."
+  },
+  "productCarousel": {
+    "topRated": "Top Rated",
+    "featured": "Featured"
+  },
+  "searchBox": {
+    "placeholder": "Search Products...",
+    "search": "Search"
+  },
+  "cartScreen": {
+    "title": "Shopping Cart",
+    "emptyCartMessage": "Your cart is empty",
+    "returnButton": "Return",
+    "subtotal": "Subtotal",
+    "checkoutButton": "Checkout"
+  },
+  "editProductScreen": {
+    "return": "Return",
+    "editProduct": "Edit Product",
+    "name": "Name",
+    "price": "Price",
+    "category": "Category",
+    "description": "Description",
+    "brand": "Brand"
+  },
+  "editUserScreen": {
+    "return": "Return",
+    "editUser": "Edit User",
+    "name": "Name",
+    "lastname": "Lastname",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "update": "Update"
+  },
+
+  "homeScreen": {
+    "back": "Back"
+  },
+  "loginScreen": {
+    "back": "Back"
+  },
+  "myOrdersScreen": {
+    "myOrders":"My Orders"
+  },
+  "orderListScreen": {
+    "allOrders": "All Orders"
+  },
+  "orderScreen": {
+    "orderItems": "Order Items",
+    "orderEmpty": "Your order is emtpty",
+    "orderSummary": "Order Summary",
+    "markDelivered": "Mark as delivered"
+  },
+  "paymentScreen": {
+    "paymentMethod": "Payment Method",
+    "selectMethod": "Select Method"
+  },
+  "placeOrderScreen": {
+    "cartEmpty" : "Your cart is empty",
+    "orderSummary":"Order Summary",
+    "submitOrder": "Submit Order"
+  },
+  "productListScreen": {
+    "back": "Back"
+  },
+  "productScreen": {
+    "price":"Price",
+    "description":"Description",
+    "quantity":"Quantity",
+    "addToCart": "Add to Cart",
+    "reviews": "Reviews",
+    "noReviews": "No Reviews",
+    "writeReview": "Write a Review",
+    "reviewSubmitted": "Review submitted successfully",
+    "comment": "Comment",
+    "submit":"Submit"
+
+  },
+  "profileScreen": {
+    "name":"Name",
+    "lastname":"Lastname",
+    "emailAddress":"Email Address",
+    "phoneNumber":"Phone Number",
+    "haveAccount": "Have an account?",
+    "password":"Password",
+    "update":"Update"
+  },
+  "registerScreen": {
+    "back": "Back",
+    "name":"Name",
+    "lastname":"Lastname",
+    "emailAddress":"Email Address",
+    "phoneNumber":"Phone Number",
+    "haveAccount": "Have an account?",
+    "password":"Password",
+    "confirmPassword": "Confirm Password"
+  },
+  "shippingScreen": {
+    "back": "Back",
+    "requestInvoice": "Request Invoice",
+    "companyName": "Company Name",
+    "vatNumber": "VAT Number",
+    "address": "Address",
+    "city": "City",
+    "postalCode": "Postal Code",
+    "country": "Country",
+    "submit": "Submit"
+
+  },
+  "userAccountSettingsScreen": {
+    "accountSettings":"Account Settings",
+    "back": "Back",
+    "profileUpdated": "Profile successfully updated",
+    "emailAddress": "Email Address",
+    "oldPassword" : "Old Password",
+    "password": "Password",
+    "newPassword": "New Password",
+    "confirmNewPassword": "Confirm New Password",
+    "update":"Update",
+    "removeAccount":"Remove Account"    
+  },
+  "usersListScreen": {
+    "users": "Users",
+    "name": "Name",
+    "lastname": "Lastname",
+    "dateCreated": "Date Created",
+    "back": "Back"
+  },
+  "verificationScreen": {
+    "verify": "Verify Your Email Address:",
+    "enterCode": "Enter the verification code sent to your email address:",
+    "submit": "Submit"
+  },
+
+  "dictionary": {
+    "return": "Return"
+  }
+}
