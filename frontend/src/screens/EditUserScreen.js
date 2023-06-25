@@ -57,7 +57,7 @@ const EditUserScreen = () => {
     );
   };
   return (
-    <>
+    <React.Fragment>
       <Link to="/admin/users/list" className="btn btn-light my-3">
         {t("return")}
       </Link>
@@ -143,7 +143,7 @@ const EditUserScreen = () => {
           </Form>
         )}
       </FormContainer>
-    </>
+    </React.Fragment>
   );
 };
 

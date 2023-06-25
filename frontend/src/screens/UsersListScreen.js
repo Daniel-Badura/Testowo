@@ -39,7 +39,7 @@ const UsersListScreen = () => {
   };
 
   return (
-    <>
+    <React.Fragment>
       <h1>{t("usersListScreen.users")}</h1>
       {loading ? (
         <Loader />
@@ -100,12 +100,12 @@ const UsersListScreen = () => {
                 </tr>
               ))
             ) : (
-              <></>
+              <React.Fragment></React.Fragment>
             )}
           </tbody>
         </Table>
       )}
-    </>
+    </React.Fragment>
   );
 };
 

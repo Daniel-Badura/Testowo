@@ -11,9 +11,9 @@ const HomeScreen = () => {
   const dispatch = useDispatch();
 
   return (
-    <>
+    <React.Fragment>
       <Meta />
-    </>
+    </React.Fragment>
   );
 };
 
