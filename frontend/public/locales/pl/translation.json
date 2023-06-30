@@ -19,7 +19,7 @@
   "headNote": "Prosimy pamiętać, że ta strona jest przeznaczona wyłącznie do celów prezentacyjnych i powinna być używana rozważnie do jej zamierzonego celu",
   "image": "Obraz",
   "inStock": "Ilość",
-  "items": "Produkty",
+  "items": "Testy",
   "method":"Metoda",
   "name": "Nazwa",
   "notDelivered": "Nie dostarczono",
@@ -28,8 +28,8 @@
   "paymentMethod":"Metoda płatności",
   "phoneNumber": "Numer telefonu",
   "price": "Cena",
-  "product": "Produkt",
-  "products": "Produkty",
+  "test": "Test",
+  "tests": "Testy",
   "rating": "Ocena",
   "register":"Rejestracja",
   "return": "Powrót",
@@ -56,7 +56,7 @@
     "cart": "Koszyk",
     "admin": "ADMIN",
     "usersList": "Lista użytkowników",
-    "products": "Produkty",
+    "tests": "Testy",
     "orders": "Zamówienia",
     "emailVerification": "Weryfikacja e-mail",
     "profile": "Profil",
@@ -69,12 +69,12 @@
   "loader": {
     "loading": "Ładowanie ..."
   },
-  "productCarousel": {
+  "testCarousel": {
     "topRated": "Najlepiej oceniane",
     "featured": "Polecane"
   },
   "searchBox": {
-    "placeholder": "Szukaj produktów...",
+    "placeholder": "Szukaj testów...",
     "search": "Szukaj"
   },
   "cartScreen": {
@@ -84,9 +84,9 @@
     "subtotal": "Suma częściowa",
     "checkoutButton": "Zapłać"
   },
-  "editProductScreen": {
+  "editTestScreen": {
     "return": "Powrót",
-    "editProduct": "Edytuj produkt",
+    "editTest": "Edytuj test",
     "name": "Nazwa",
     "price": "Cena",
     "category": "Kategoria",
@@ -130,10 +130,10 @@
     "orderSummary":"Podsumowanie zamówienia",
     "submitOrder": "Zamów"
   },
-  "productListScreen": {
+  "testListScreen": {
     "back": "Powrót"
   },
-  "productScreen": {
+  "testScreen": {
     "price":"Cena",
     "description":"Opis",
     "quantity":"Ilość",
@@ -143,7 +143,8 @@
     "writeReview": "Napisz opinię",
     "reviewSubmitted": "Opinia została dodana pomyślnie",
     "comment": "Komentarz",
-    "submit":"Prześlij"
+    "submit":"Prześlij",
+    "enrollTest": "Rozpocznij Test"
 },
 "profileScreen": {
   "name":"Imię",

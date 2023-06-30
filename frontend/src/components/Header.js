@@ -35,6 +35,9 @@ const Header = () => {
                   <LinkContainer to="/admin/users/list">
                     <NavDropdown.Item>{t("header.usersList")}</NavDropdown.Item>
                   </LinkContainer>
+                  <LinkContainer to="/admin/tests/list">
+                    <NavDropdown.Item>{t("header.tests")}</NavDropdown.Item>
+                  </LinkContainer>
                 </NavDropdown>
               )}
               {userInfo ? (

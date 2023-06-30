@@ -28,8 +28,8 @@
   "paymentMethod":"Payment Method",
   "phoneNumber": "Phone Number",
   "price": "Price",
-  "product": "Product",
-  "products": "Products",
+  "test": "Test",
+  "tests": "Tests",
   "rating": "Rating",
   "register":"Register",
   "return": "Return",
@@ -56,7 +56,7 @@
     "cart": "Cart",
     "admin": "ADMIN",
     "usersList": "Users List",
-    "products": "Products",
+    "tests": "Tests",
     "orders": "Orders",
     "emailVerification": "Email Verification",
     "profile": "Profile",
@@ -69,12 +69,12 @@
   "loader": {
     "loading": "Loading ..."
   },
-  "productCarousel": {
+  "testCarousel": {
     "topRated": "Top Rated",
     "featured": "Featured"
   },
   "searchBox": {
-    "placeholder": "Search Products...",
+    "placeholder": "Search Tests...",
     "search": "Search"
   },
   "cartScreen": {
@@ -84,9 +84,9 @@
     "subtotal": "Subtotal",
     "checkoutButton": "Checkout"
   },
-  "editProductScreen": {
+  "editTestScreen": {
     "return": "Return",
-    "editProduct": "Edit Product",
+    "editTest": "Edit Test",
     "name": "Name",
     "price": "Price",
     "category": "Category",
@@ -130,10 +130,10 @@
     "orderSummary":"Order Summary",
     "submitOrder": "Submit Order"
   },
-  "productListScreen": {
+  "testListScreen": {
     "back": "Back"
   },
-  "productScreen": {
+  "testScreen": {
     "price":"Price",
     "description":"Description",
     "quantity":"Quantity",
@@ -143,7 +143,8 @@
     "writeReview": "Write a Review",
     "reviewSubmitted": "Review submitted successfully",
     "comment": "Comment",
-    "submit":"Submit"
+    "submit":"Submit",
+    "enrollTest": "Enroll"
 
   },
   "profileScreen": {

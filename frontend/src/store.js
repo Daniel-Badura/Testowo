@@ -10,6 +10,16 @@ import {
   userDeleteReducer,
   userUpdateReducer,
 } from "./reducers/userReducers";
+import {
+  testListReducer,
+  testDetailsReducer,
+  testDeleteReducer,
+  testUpdateReducer,
+  testCreateReducer,
+  reviewCreateReducer,
+  testTopRatedReducer,
+  testFeaturedReducer,
+} from "./reducers/testReducers";
 
 const middleware = [thunk];
 const reducer = combineReducers({
@@ -21,6 +31,14 @@ const reducer = combineReducers({
   userUpdate: userUpdateReducer,
   userVerifyEmail: userVerifyEmailReducer,
   usersList: usersListReducer,
+  testList: testListReducer,
+  testDetails: testDetailsReducer,
+  testCreate: testCreateReducer,
+  testUpdate: testUpdateReducer,
+  testDelete: testDeleteReducer,
+  testTopRated: testTopRatedReducer,
+  testFeatured: testFeaturedReducer,
+  reviewCreate: reviewCreateReducer,
 });
 // localStorage.removeItem('userInfo'); web;
 

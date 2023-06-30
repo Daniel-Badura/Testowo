@@ -5,6 +5,7 @@ import morgan from "morgan";
 import path from "path";
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
+import testRoutes from "./routes/testRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 
@@ -25,6 +26,7 @@ connectDB();
 // @ Google Cloud Storage
 
 // @desc Start Express Application //
+app.use("/api/tests", testRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
