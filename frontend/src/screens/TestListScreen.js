@@ -115,7 +115,7 @@ const TestListScreen = () => {
                         <Button
                           style={{ height: "100%" }}
                           variant="outline-info"
-                          className="btn-sm"
+                          className="btn-sm rounded"
                           onClick={() => {
                             navigate(`/admin/tests/${test._id}/edit`);
                           }}
@@ -125,7 +125,7 @@ const TestListScreen = () => {
 
                         <Button
                           variant="outline-danger"
-                          className="btn-sm"
+                          className="btn-sm rounded"
                           onClick={() => {
                             deleteHandler(test._id, test.name);
                           }}
@@ -138,6 +138,7 @@ const TestListScreen = () => {
                 : ""}
             </tbody>
           </Table>
+          <h1 className="text-3xl font-bold underline">Hello world!</h1>
           <Paginate pages={pages} page={page} isAdmin={true} />
         </>
       )}

@@ -89,12 +89,12 @@ const UsersListScreen = () => {
                     </LinkContainer>
                     <Button
                       variant="outline-danger"
-                      className="btn-sm "
+                      className="btn-sm rounded"
                       onClick={() => {
                         deleteHandler(user._id, user.email);
                       }}
                     >
-                      <i className="fas fa-trash" />
+                      <i className="fas fa-trash " />
                     </Button>
                   </td>
                 </tr>
