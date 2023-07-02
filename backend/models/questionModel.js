@@ -17,7 +17,12 @@ const answerSchema = new mongoose.Schema({
 });
 
 export const questionSchema = new mongoose.Schema({
-  question: {
+  test: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "Test",
+  },
+  content: {
     type: String,
     required: true,
   },

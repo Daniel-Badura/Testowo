@@ -17,7 +17,9 @@ import EditUserScreen from "./screens/EditUserScreen";
 import UserAccountSettingsScreen from "./screens/UserAccountSettingsScreen";
 import EditTestScreen from "./screens/EditTestScreen";
 import TestListScreen from "./screens/TestListScreen";
+import TestQuestionListScreen from "./screens/TestQuestionListScreen";
 import TestScreen from "./screens/TestScreen";
+import EditQuestionScreen from "./screens/EditQuestionScreen";
 function App() {
   const { t } = useTranslation();
 
@@ -40,11 +42,20 @@ function App() {
             <Route path="/admin/users/:id/edit" element={<EditUserScreen />} />
             <Route path="/tests/:id" element={<TestScreen />} />
             <Route path="/admin/tests/list" element={<TestListScreen />} />
+            <Route
+              path="/admin/tests/:id/questions"
+              element={<TestQuestionListScreen />}
+            />
             <Route path="/admin/tests/:id/edit" element={<EditTestScreen />} />
+            <Route
+              path="/admin/questions/:id/questions/:qid"
+              element={<EditQuestionScreen />}
+            />
             <Route
               path="/search/:keyword/page/:pageNumber"
               element={<HomeScreen />}
             />{" "}
+            <Route path="/page/:pageNumber" element={<HomeScreen />} />
             <Route path="/page/:pageNumber" element={<HomeScreen />} />
           </Routes>
         </Container>

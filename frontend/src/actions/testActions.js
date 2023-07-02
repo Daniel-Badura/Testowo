@@ -24,7 +24,7 @@ import {
   ENROLL_TEST_REQUEST,
   ENROLL_TEST_SUCCESS,
   ENROLL_TEST_FAIL,
-} from "../constants/testConstats.js";
+} from "../constants/testConstants.js";
 
 export const listTests =
   (keyword = "", pageNumber = "") =>

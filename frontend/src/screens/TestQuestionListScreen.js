@@ -4,14 +4,18 @@ import { Button, Col, Row, Table } from "react-bootstrap";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { logout } from "../actions/userActions";
-import { createTest, deleteTest, listTests } from "../actions/testActions";
+import {
+  createQuestion,
+  deleteQuestion,
+  listQuestions,
+} from "../actions/questionActions";
 import { useNavigate, useParams } from "react-router-dom";
-import { TEST_CREATE_RESET } from "../constants/testConstants";
+import { QUESTION_CREATE_RESET } from "../constants/questionConstants";
 import Paginate from "../components/Paginate";
 import { useTranslation } from "react-i18next";
-const TestListScreen = () => {
+const TestQuestionListScreen = () => {
   const { t } = useTranslation();
-  const { pageNumber } = useParams();
+  const { pageNumber, id: testId } = useParams();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -19,59 +23,69 @@ const TestListScreen = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const testDelete = useSelector((state) => state.testDelete);
+  const questionDelete = useSelector((state) => state.questionDelete);
   const {
     success: deleted,
     error: deleteError,
     loading: deleteLoading,
-  } = testDelete;
+  } = questionDelete;
 
-  const testCreate = useSelector((state) => state.testCreate);
+  const questionCreate = useSelector((state) => state.questionCreate);
   const {
     success: created,
     error: createError,
     loading: createLoading,
-    test: createdTest,
-  } = testCreate;
+    question: createdQuestion,
+  } = questionCreate;
 
-  const testList = useSelector((state) => state.testList);
-  const { loading, error, tests, page, pages } = testList;
+  const questionList = useSelector((state) => state.questionList);
+  const { loading, error, questions, page, pages } = questionList;
 
   useEffect(() => {
-    dispatch({ type: TEST_CREATE_RESET });
+    dispatch({ type: QUESTION_CREATE_RESET });
     if (!userInfo && !userInfo.isAdmin) {
       dispatch(logout());
       navigate("/login");
     }
     if (created) {
-      navigate(`/admin/tests/${createdTest._id}/edit`);
+      navigate(`/admin/questions/${testId}/questions/${createdQuestion._id}`);
     } else {
-      dispatch(listTests("", pageNumber));
+      dispatch(listQuestions(testId));
     }
-  }, [dispatch, userInfo, navigate, deleted, created, createdTest, pageNumber]);
+  }, [
+    dispatch,
+    userInfo,
+    navigate,
+    deleted,
+    created,
+    pageNumber,
+    testId,
+    createdQuestion,
+  ]);
 
   const deleteHandler = (id, name) => {
     if (window.confirm(`Confirm removing ${name}`)) {
-      dispatch(deleteTest(id));
+      dispatch(deleteQuestion(id));
     }
   };
-  const createTestHandler = () => {
-    dispatch(createTest());
+  const createQuestionHandler = () => {
+    dispatch(createQuestion(testId));
   };
 
   return (
     <>
       <Row className="align-items-center">
         <Col>
-          <h1>{t("tests")}</h1>
+          <h1>{t("questions")}</h1>
         </Col>
         <Col className="text-center">
           <Button
             className="my-3"
             variant="success"
-            onClick={createTestHandler}
+            onClick={createQuestionHandler}
           >
-            <i className="fas fa-plus"> </i> Create Test
+            <i className="fas fa-plus"> </i>{" "}
+            {t("editTestQuestionScreen.createQuestion")}
           </Button>
         </Col>
       </Row>
@@ -90,34 +104,33 @@ const TestListScreen = () => {
             <thead>
               <tr>
                 {/* <th>ID</th> */}
-                <th>{t("name")}</th>
-                <th>{t("price")}</th>
-                <th>{t("category")}</th>
-                <th>{t("brand")}</th>
+                <th>{t("numer")}</th>
+                <th>{t("question")}</th>
+                <th>{t("answers")}</th>
+                <th>{t("correctAnswers")}</th>
                 <th>
                   {t("edit")}/{t("delete")}
                 </th>
               </tr>
             </thead>
             <tbody>
-              {tests
-                ? tests.map((test) => (
-                    <tr key={test._id}>
-                      {/* <td> <a href={`/tests/${test._id}`}>{test._id} </a></td> */}
+              {questions
+                ? questions.map((question) => (
+                    <tr key={question._id}>
                       <td>
                         {" "}
-                        <a href={`/tests/${test._id}`}>{test.name} </a>
+                        <a href={`/questions/${question._id}`}>
+                          {question.question}{" "}
+                        </a>
                       </td>
-                      <td>{test.price}€</td>
-                      <td>{test.category}</td>
-                      <td>{test.brand}</td>
+                      <td>{question.image}</td>
+                      <td>{question.answers}</td>
                       <td>
                         <Button
-                          style={{ height: "100%" }}
                           variant="outline-info"
                           className="btn-sm rounded"
                           onClick={() => {
-                            navigate(`/admin/tests/${test._id}/edit`);
+                            navigate(`/admin/questions/${question._id}`);
                           }}
                         >
                           <i className="fas fa-edit big" />
@@ -127,7 +140,7 @@ const TestListScreen = () => {
                           variant="outline-danger"
                           className="btn-sm rounded"
                           onClick={() => {
-                            deleteHandler(test._id, test.name);
+                            deleteHandler(question._id, question.name);
                           }}
                         >
                           <i className="fas fa-trash big" />
@@ -145,4 +158,4 @@ const TestListScreen = () => {
   );
 };
 
-export default TestListScreen;
+export default TestQuestionListScreen;

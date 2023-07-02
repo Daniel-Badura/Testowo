@@ -20,6 +20,13 @@ import {
   testTopRatedReducer,
   testFeaturedReducer,
 } from "./reducers/testReducers";
+import {
+  questionListReducer,
+  questionDetailsReducer,
+  questionDeleteReducer,
+  questionUpdateReducer,
+  questionCreateReducer,
+} from "./reducers/questionReducers";
 
 const middleware = [thunk];
 const reducer = combineReducers({
@@ -39,6 +46,11 @@ const reducer = combineReducers({
   testTopRated: testTopRatedReducer,
   testFeatured: testFeaturedReducer,
   reviewCreate: reviewCreateReducer,
+  questionList: questionListReducer,
+  questionDetails: questionDetailsReducer,
+  questionCreate: questionCreateReducer,
+  questionUpdate: questionUpdateReducer,
+  questionDelete: questionDeleteReducer,
 });
 // localStorage.removeItem('userInfo'); web;
 

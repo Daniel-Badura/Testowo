@@ -42,6 +42,13 @@
   "topRated": "Top Rated",
   "total": "Total",
   "update": "Update",
+  "number": "Number",
+  "question": "Question",
+  "answers": "Answers",
+  "questions": "Questions",
+  "correctAnswers": "Correct Answers",
+
+
   "checkout": {
     "shipping": "Shipping",
     "payment": "Payment",
@@ -91,8 +98,15 @@
     "price": "Price",
     "category": "Category",
     "description": "Description",
-    "brand": "Brand"
+    "brand": "Brand",
+    "editQuestion": "Edit Question",
+    "editQuestions": "Edit Questions"
   },
+  "editTestQuestionScreen": {
+    "createQuestion": "Create Question",
+    "editQuestion" : "Edit Question"
+  },    
+
   "editUserScreen": {
     "return": "Return",
     "editUser": "Edit User",

@@ -43,7 +43,7 @@ export const testSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    questions: { questionSchema },
+    questions: [questionSchema],
   },
   {
     timestamps: true,

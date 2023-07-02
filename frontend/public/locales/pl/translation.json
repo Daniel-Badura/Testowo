@@ -42,6 +42,11 @@
   "topRated": "Najlepiej oceniane",
   "total": "Suma",
   "update": "Aktualizuj",
+  "number": "Numer",
+  "question": "Pytanie",
+  "answers": "Odpowiedzi",
+  "questions": "Pytania",
+  "correctAnswers": "Poprawne Odpowiedzi",
   "checkout": {
     "shipping": "Dostawa",
     "payment": "Płatność",
@@ -91,8 +96,14 @@
     "price": "Cena",
     "category": "Kategoria",
     "description": "Opis",
-    "brand": "Marka"
+    "brand": "Marka",
+    "editQuestions": "Edytuj Pytania",
+    "editQuestion": "Edytuj Pytanie"
   },
+  "editTestQuestionScreen": {
+    "createQuestion": "Utwórz Pytanie",
+    "editQuestion" : "Edytuj Pytanie"
+  },  
   "editUserScreen": {
     "return": "Powrót",
     "editUser": "Edytuj użytkownika",

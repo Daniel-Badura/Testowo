@@ -20,14 +20,13 @@ import {
   listTestDetails,
   enrollTest,
 } from "../actions/testActions";
-import { REVIEW_CREATE_RESET } from "../constants/testConstats";
+import { REVIEW_CREATE_RESET } from "../constants/testConstants";
 import Meta from "../components/Meta";
 import { useTranslation } from "react-i18next";
 
 const TestScreen = () => {
   const { t } = useTranslation();
   const { id: testId } = useParams();
-  const [quantity, setQuantity] = useState(1);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const dispatch = useDispatch();

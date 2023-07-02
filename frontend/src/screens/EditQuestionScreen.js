@@ -5,69 +5,67 @@ import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import FormContainer from "../components/FormContainer";
-import { TEST_UPDATE_RESET } from "../constants/testConstants";
-import { listTestDetails, updateTest } from "../actions/testActions";
+import { QUESTION_UPDATE_RESET } from "../constants/questionConstants";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
+import {
+  listQuestionDetails,
+  updateQuestion,
+} from "../actions/questionActions";
 
-const EditTestScreen = () => {
+const EditQuestionScreen = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { id: testId } = useParams();
-  const [name, setName] = useState("");
+  const { id: testId, qid: questionId } = useParams();
+  const [content, setContent] = useState("");
   const [image, setImage] = useState("");
-  const [brand, setBrand] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
   const [uploading, setUploading] = useState("");
-  const [featured, setFeatured] = useState("");
 
   const [message, setMessage] = useState(null);
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const testDetails = useSelector((state) => state.testDetails);
-  const { loading, error, test } = testDetails;
+  const questionDetails = useSelector((state) => state.questionDetails);
+  const { loading, error, question } = questionDetails;
 
-  const testUpdate = useSelector((state) => state.testUpdate);
+  const questionUpdate = useSelector((state) => state.questionUpdate);
   const {
     loading: loadingUpdate,
     error: errorUpdate,
     success: successUpdate,
-  } = testUpdate;
+  } = questionUpdate;
 
   useEffect(() => {
     if (successUpdate) {
-      dispatch({ type: TEST_UPDATE_RESET });
-      navigate("/admin/tests/list");
+      dispatch({ type: QUESTION_UPDATE_RESET });
+      navigate(`/admin/tests/${testId}/questions`);
     } else {
-      if (!test.name || test._id !== testId) {
-        dispatch(listTestDetails(testId));
+      if (!question || question._id !== questionId) {
+        dispatch(listQuestionDetails(testId, questionId));
       } else {
-        setName(test.name);
-
-        setImage(test.image);
-        setBrand(test.brand);
-        setDescription(test.description);
-        setCategory(test.category);
-        setFeatured(test.featured);
+        setContent(question.question);
+        setImage(question.image);
       }
     }
     setMessage(null);
-  }, [dispatch, test, testId, navigate, successUpdate]);
+  }, [
+    dispatch,
+    question,
+    questionId,
+    navigate,
+    testId,
+    successUpdate,
+    questionDetails,
+  ]);
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
-      updateTest({
-        _id: testId,
-        name,
+      updateQuestion({
+        _id: questionId,
+        content,
         image,
-        brand,
-        description,
-        category,
-        featured,
       })
     );
   };
@@ -98,9 +96,8 @@ const EditTestScreen = () => {
       <Link to="/admin/tests/list" className="btn btn-light my-3">
         {t("editTestScreen.return")}
       </Link>
-
       <FormContainer>
-        <h1>{t("editTestScreen.editTest")}</h1>
+        <h1>{t("editTestScreen.editQuestion")}</h1>
         {message && <Message variant="danger"> {message} </Message>}
         {loadingUpdate && <Loader />}
         {errorUpdate && <Message variant="danger"> {errorUpdate} </Message>}
@@ -116,41 +113,13 @@ const EditTestScreen = () => {
           <Loader />
         ) : (
           <Form onSubmit={submitHandler}>
-            <Form.Group controlId="name" className="pt-2">
-              <Form.Label>{t("name")}</Form.Label>
+            <Form.Group controlId="content" className="pt-2">
+              <Form.Label>{t("question")}</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-
-            <Form.Group controlId="category" className="pt-2">
-              <Form.Label>{t("category")}</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Category"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-            <Form.Group controlId="description" className="pt-2">
-              <Form.Label>{t("description")}</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-            <Form.Group controlId="brand" className="pt-2">
-              <Form.Label>{t("brand")}</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Brand"
-                value={brand}
-                onChange={(e) => setBrand(e.target.value)}
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
               ></Form.Control>
             </Form.Group>
             <Form.Group controlId="image" className="pt-2">
@@ -169,14 +138,6 @@ const EditTestScreen = () => {
               ></Form.Control>
               {uploading && <Loader />}
             </Form.Group>
-            <Form.Group controlId="featured" className="pt-2">
-              <Form.Check
-                type="checkbox"
-                label="Featured"
-                checked={featured}
-                onChange={(e) => setFeatured(e.target.checked)}
-              ></Form.Check>
-            </Form.Group>
             <Button
               type="submit"
               variant="primary"
@@ -184,12 +145,6 @@ const EditTestScreen = () => {
             >
               {t("update")}
             </Button>
-            <Link
-              to={`/admin/tests/${testId}/questions`}
-              className="btn btn-light my-3"
-            >
-              {t("editTestScreen.editQuestions")}
-            </Link>
           </Form>
         )}
       </FormContainer>
@@ -197,4 +152,4 @@ const EditTestScreen = () => {
   );
 };
 
-export default EditTestScreen;
+export default EditQuestionScreen;

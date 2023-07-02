@@ -23,7 +23,7 @@ import {
   TEST_TOP_RATED_REQUEST,
   TEST_TOP_RATED_SUCCESS,
   TEST_TOP_RATED_FAIL,
-} from "../constants/testConstats.js";
+} from "../constants/testConstants.js";
 
 export const testListReducer = (state = { tests: [] }, action) => {
   switch (action.type) {
