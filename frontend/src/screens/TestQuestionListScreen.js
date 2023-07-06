@@ -9,7 +9,7 @@ import {
   deleteQuestion,
   listQuestions,
 } from "../actions/questionActions";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { QUESTION_CREATE_RESET } from "../constants/questionConstants";
 import Paginate from "../components/Paginate";
 import { useTranslation } from "react-i18next";
@@ -48,7 +48,9 @@ const TestQuestionListScreen = () => {
       navigate("/login");
     }
     if (created) {
-      navigate(`/admin/questions/${testId}/questions/${createdQuestion._id}`);
+      navigate(
+        `/admin/questions/${testId}/questions/${createdQuestion._id}/edit`
+      );
     } else {
       dispatch(listQuestions(testId));
     }
@@ -65,7 +67,7 @@ const TestQuestionListScreen = () => {
 
   const deleteHandler = (id, name) => {
     if (window.confirm(`Confirm removing ${name}`)) {
-      dispatch(deleteQuestion(id));
+      dispatch(deleteQuestion(testId, id));
     }
   };
   const createQuestionHandler = () => {
@@ -76,7 +78,12 @@ const TestQuestionListScreen = () => {
     <>
       <Row className="align-items-center">
         <Col>
-          <h1>{t("questions")}</h1>
+          <Link to="/admin/tests/list" className="btn btn-light my-3">
+            {t("editTestScreen.return")}
+          </Link>
+          <Col>
+            <h1>{t("questions")}</h1>
+          </Col>
         </Col>
         <Col className="text-center">
           <Button
@@ -104,8 +111,8 @@ const TestQuestionListScreen = () => {
             <thead>
               <tr>
                 {/* <th>ID</th> */}
-                <th>{t("numer")}</th>
                 <th>{t("question")}</th>
+                <th>{t("image")}</th>
                 <th>{t("answers")}</th>
                 <th>{t("correctAnswers")}</th>
                 <th>
@@ -119,12 +126,13 @@ const TestQuestionListScreen = () => {
                     <tr key={question._id}>
                       <td>
                         {" "}
-                        <a href={`/questions/${question._id}`}>
-                          {question.question}{" "}
+                        <a href={`/tests/${testId}/questions/${question._id}`}>
+                          {question.content}{" "}
                         </a>
                       </td>
                       <td>{question.image}</td>
-                      <td>{question.answers}</td>
+                      <td>{question.answers.length}</td>
+                      <td>{question.correctAnswers.length}</td>
                       <td>
                         <Button
                           variant="outline-info"
@@ -140,7 +148,7 @@ const TestQuestionListScreen = () => {
                           variant="outline-danger"
                           className="btn-sm rounded"
                           onClick={() => {
-                            deleteHandler(question._id, question.name);
+                            deleteHandler(question._id, question.content);
                           }}
                         >
                           <i className="fas fa-trash big" />

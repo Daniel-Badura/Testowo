@@ -23,7 +23,6 @@ export const questionListReducer = (state = { questions: [] }, action) => {
     case QUESTION_LIST_REQUEST:
       return { loading: true, questions: [] };
     case QUESTION_LIST_SUCCESS:
-      console.log(action.payload);
       return {
         loading: false,
         questions: action.payload,

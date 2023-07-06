@@ -97,10 +97,17 @@ export const createQuestion = asyncHandler(async (req, res) => {
 // @route       DELETE /api/tests/:id/questions/:qid
 // @access      Private
 export const deleteQuestion = asyncHandler(async (req, res) => {
-  const question = await Question.findByIdAndRemove(req.params.qid);
+  const testId = req.params.id;
+  const questionId = req.params.qid;
 
-  if (question) {
-    res.json("Question removed");
+  const test = await Test.updateOne(
+    { _id: testId },
+    { $pull: { questions: { _id: questionId } } }
+  );
+  const tests = await Test.findById(testId);
+  console.log(tests);
+  if (test) {
+    res.json({ message: "Question removed" });
   } else {
     res.status(404);
     throw new Error("Test not found");
