@@ -15,6 +15,9 @@ import {
   QUESTION_LIST_REQUEST,
   QUESTION_LIST_SUCCESS,
   QUESTION_LIST_FAIL,
+  ANSWER_CREATE_REQUEST,
+  ANSWER_CREATE_SUCCESS,
+  ANSWER_CREATE_FAIL,
 } from "../constants/questionConstants.js";
 
 export const listQuestions = (testId) => async (dispatch) => {
@@ -168,7 +171,7 @@ export const createAnswer =
   async (dispatch, getState) => {
     try {
       dispatch({
-        type: QUESTION_CREATE_REQUEST,
+        type: ANSWER_CREATE_REQUEST,
       });
       const {
         userLogin: { userInfo },
@@ -184,12 +187,12 @@ export const createAnswer =
         config
       );
       dispatch({
-        type: QUESTION_CREATE_SUCCESS,
+        type: ANSWER_CREATE_SUCCESS,
         payload: data,
       });
     } catch (error) {
       dispatch({
-        type: QUESTION_CREATE_FAIL,
+        type: ANSWER_CREATE_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message

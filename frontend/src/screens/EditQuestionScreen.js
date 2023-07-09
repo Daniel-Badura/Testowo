@@ -11,7 +11,10 @@ import {
 } from "../actions/questionActions";
 import axios from "axios";
 import Loader from "../components/Loader";
-import { QUESTION_UPDATE_RESET } from "../constants/questionConstants";
+import {
+  ANSWER_CREATE_RESET,
+  QUESTION_UPDATE_RESET,
+} from "../constants/questionConstants";
 
 const EditQuestionScreen = () => {
   const { t } = useTranslation();
@@ -34,17 +37,32 @@ const EditQuestionScreen = () => {
     success: successUpdate,
   } = questionUpdate;
 
+  const answerCreate = useSelector((state) => state.answerCreate);
+  const { loading: loadingAnswer, success: successAnswerCreate } = answerCreate;
+
   useEffect(() => {
     if (successUpdate) {
       dispatch({ type: QUESTION_UPDATE_RESET });
       navigate(`/admin/tests/${testId}/questions/${questionId}`);
+    } else if (successAnswerCreate) {
+      dispatch({ type: ANSWER_CREATE_RESET });
+      dispatch(getQuestionDetails({ testId, questionId }));
     } else {
       if (!question || question._id !== questionId) {
         dispatch(getQuestionDetails({ testId, questionId }));
-      } else {
+      } else if (question == 1) {
+        // dispatch(getQuestionDetails({ testId, questionId }));
       }
     }
-  }, [dispatch, testId, navigate, successUpdate, questionId, question]);
+  }, [
+    dispatch,
+    testId,
+    navigate,
+    successUpdate,
+    questionId,
+    question,
+    successAnswerCreate,
+  ]);
 
   const submitHandler = (e) => {
     e.preventDefault();

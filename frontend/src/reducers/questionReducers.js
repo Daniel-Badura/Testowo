@@ -16,6 +16,10 @@ import {
   QUESTION_UPDATE_FAIL,
   QUESTION_CREATE_RESET,
   QUESTION_UPDATE_RESET,
+  ANSWER_CREATE_REQUEST,
+  ANSWER_CREATE_SUCCESS,
+  ANSWER_CREATE_FAIL,
+  ANSWER_CREATE_RESET,
 } from "../constants/questionConstants.js";
 
 export const questionListReducer = (state = { questions: [] }, action) => {
@@ -88,6 +92,21 @@ export const questionDeleteReducer = (state = {}, action) => {
       return { loading: false, success: true };
     case QUESTION_DELETE_FAIL:
       return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const answerCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ANSWER_CREATE_REQUEST:
+      return { loading: true, ...state };
+    case ANSWER_CREATE_SUCCESS:
+      return { loading: false, question: action.payload, success: true };
+    case ANSWER_CREATE_FAIL:
+      return { loading: false, error: action.payload };
+    case ANSWER_CREATE_RESET:
+      return {};
     default:
       return state;
   }
