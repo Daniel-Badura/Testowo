@@ -126,7 +126,9 @@ const TestQuestionListScreen = () => {
                     <tr key={question._id}>
                       <td>
                         {" "}
-                        <a href={`/tests/${testId}/questions/${question._id}`}>
+                        <a
+                          href={`/admin/tests/${testId}/questions/${question._id}/edit`}
+                        >
                           {question.content}{" "}
                         </a>
                       </td>
@@ -138,7 +140,9 @@ const TestQuestionListScreen = () => {
                           variant="outline-info"
                           className="btn-sm rounded"
                           onClick={() => {
-                            navigate(`/admin/questions/${question._id}`);
+                            navigate(
+                              `/admin/tests/${testId}/questions/${question._id}/edit`
+                            );
                           }}
                         >
                           <i className="fas fa-edit big" />

@@ -1,6 +1,6 @@
 import asyncHandler from "express-async-handler";
 import Test from "../models/testModel.js";
-import Question from "../models/questionModel.js";
+import Question, { Answer, answerSchema } from "../models/questionModel.js";
 
 // @desc        get questions
 // @route       GET /api/tests/:id/questions
@@ -118,7 +118,7 @@ export const deleteQuestion = asyncHandler(async (req, res) => {
 // @route       PUT /api/tests/:id/questions/:qid
 // @access      Private/Admin
 export const updateQuestion = asyncHandler(async (req, res) => {
-  const { name, description, image, brand, category, featured } = req.body;
+  const { content, description, image } = req.body;
   const question = await Question.findById(req.params.qid);
   if (question) {
     question.content = description;
@@ -129,5 +129,30 @@ export const updateQuestion = asyncHandler(async (req, res) => {
   } else {
     res.status(404);
     throw new Error("Question not found");
+  }
+});
+
+export const createAnswer = asyncHandler(async (req, res) => {
+  const testId = req.params.id;
+  const questionId = req.params.qid;
+  const test = await Test.findById(testId);
+  // console.log(test.questions.find((item) => item._id === questionId));
+  const answer = new Answer({
+    answerText: "whatever",
+  });
+  if (test) {
+    // const test = await Test.updateOne(
+    //   { _id: testId, "questions._id": questionId },
+    //   { $push: { "questions.$.answers": answer } }
+    // );\
+    test.questions
+      .find((question) => question._id.toString() === questionId)
+      .answers.push(answer);
+    await test.save();
+
+    res.status(201).json(question);
+  } else {
+    res.status(404);
+    throw new Error("Test not found");
   }
 });

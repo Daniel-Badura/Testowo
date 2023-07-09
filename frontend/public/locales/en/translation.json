@@ -106,6 +106,9 @@
     "createQuestion": "Create Question",
     "editQuestion" : "Edit Question"
   },    
+  "editQuestionScreen": {
+    "addAnswer": "Add Answer"
+  },    
 
   "editUserScreen": {
     "return": "Return",

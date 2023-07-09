@@ -104,6 +104,10 @@
     "createQuestion": "Utwórz Pytanie",
     "editQuestion" : "Edytuj Pytanie"
   },  
+  "editQuestionScreen": {
+    "addAnswer": "Dodaj Odpowiedź"
+  },    
+
   "editUserScreen": {
     "return": "Powrót",
     "editUser": "Edytuj użytkownika",

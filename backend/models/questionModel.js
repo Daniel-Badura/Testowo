@@ -1,18 +1,9 @@
 import mongoose from "mongoose";
 
-const answerSchema = new mongoose.Schema({
-  answerLetter: {
-    type: String,
-    required: true,
-    maxLength: 1,
-  },
+export const answerSchema = new mongoose.Schema({
   answerText: {
     type: String,
     required: true,
-  },
-  answerImage: {
-    type: String,
-    required: false,
   },
 });
 
@@ -33,7 +24,7 @@ export const questionSchema = new mongoose.Schema({
   answers: [answerSchema],
   correctAnswers: [answerSchema],
 });
-
-const Question = mongoose.model("Question", questionSchema);
+export const Question = mongoose.model("Question", questionSchema);
+export const Answer = mongoose.model("Answer", answerSchema);
 
 export default Question;

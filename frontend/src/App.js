@@ -48,7 +48,7 @@ function App() {
             />
             <Route path="/admin/tests/:id/edit" element={<EditTestScreen />} />
             <Route
-              path="/admin/questions/:id/questions/:qid"
+              path="/admin/tests/:id/questions/:qid/edit"
               element={<EditQuestionScreen />}
             />
             <Route

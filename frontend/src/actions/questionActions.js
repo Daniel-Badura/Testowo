@@ -36,28 +36,30 @@ export const listQuestions = (testId) => async (dispatch) => {
   }
 };
 
-export const listQuestionDetails = (testId, questionId) => async (dispatch) => {
-  try {
-    dispatch({
-      type: QUESTION_DETAILS_REQUEST,
-    });
-    const { data } = await axios.get(
-      `/api/tests/${testId}/questions/${questionId}`
-    );
-    dispatch({
-      type: QUESTION_DETAILS_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: QUESTION_DETAILS_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+export const getQuestionDetails =
+  ({ testId, questionId }) =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: QUESTION_DETAILS_REQUEST,
+      });
+      const { data } = await axios.get(
+        `/api/tests/${testId}/questions/${questionId}`
+      );
+      dispatch({
+        type: QUESTION_DETAILS_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: QUESTION_DETAILS_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 export const createQuestion = (testId) => async (dispatch, getState) => {
   try {
@@ -93,7 +95,8 @@ export const createQuestion = (testId) => async (dispatch, getState) => {
 };
 
 export const updateQuestion =
-  (test, question) => async (dispatch, getState) => {
+  ({ testId, questionId, question }) =>
+  async (dispatch, getState) => {
     try {
       dispatch({
         type: QUESTION_UPDATE_REQUEST,
@@ -101,6 +104,7 @@ export const updateQuestion =
       const {
         userLogin: { userInfo },
       } = getState();
+
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -108,8 +112,8 @@ export const updateQuestion =
         },
       };
       const { data } = await axios.put(
-        `/api/tests/${test._id}/questions/${question._id}`,
-        test,
+        `/api/tests/${testId}/questions/${questionId}`,
+        question,
         config
       );
       dispatch({
@@ -151,6 +155,41 @@ export const deleteQuestion =
     } catch (error) {
       dispatch({
         type: QUESTION_DELETE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+
+export const createAnswer =
+  ({ testId, questionId }) =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: QUESTION_CREATE_REQUEST,
+      });
+      const {
+        userLogin: { userInfo },
+      } = getState();
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      const { data } = await axios.post(
+        `/api/tests/${testId}/questions/${questionId}/`,
+        {},
+        config
+      );
+      dispatch({
+        type: QUESTION_CREATE_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: QUESTION_CREATE_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message

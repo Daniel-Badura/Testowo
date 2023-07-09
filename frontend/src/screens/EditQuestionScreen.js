@@ -1,35 +1,32 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { Form, Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import Message from "../components/Message";
-import Loader from "../components/Loader";
-import FormContainer from "../components/FormContainer";
-import { QUESTION_UPDATE_RESET } from "../constants/questionConstants";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import FormContainer from "../components/FormContainer";
+import { Button, Form } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  listQuestionDetails,
+  createAnswer,
+  getQuestionDetails,
   updateQuestion,
 } from "../actions/questionActions";
+import axios from "axios";
+import Loader from "../components/Loader";
+import { QUESTION_UPDATE_RESET } from "../constants/questionConstants";
 
 const EditQuestionScreen = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id: testId, qid: questionId } = useParams();
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState();
+  const [answer, setAnswer] = useState();
   const [image, setImage] = useState("");
   const [uploading, setUploading] = useState("");
-
-  const [message, setMessage] = useState(null);
-
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-
   const questionDetails = useSelector((state) => state.questionDetails);
   const { loading, error, question } = questionDetails;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   const questionUpdate = useSelector((state) => state.questionUpdate);
   const {
     loading: loadingUpdate,
@@ -40,36 +37,25 @@ const EditQuestionScreen = () => {
   useEffect(() => {
     if (successUpdate) {
       dispatch({ type: QUESTION_UPDATE_RESET });
-      navigate(`/admin/tests/${testId}/questions`);
+      navigate(`/admin/tests/${testId}/questions/${questionId}`);
     } else {
       if (!question || question._id !== questionId) {
-        dispatch(listQuestionDetails(testId, questionId));
+        dispatch(getQuestionDetails({ testId, questionId }));
       } else {
-        setContent(question.question);
-        setImage(question.image);
       }
     }
-    setMessage(null);
-  }, [
-    dispatch,
-    question,
-    questionId,
-    navigate,
-    testId,
-    successUpdate,
-    questionDetails,
-  ]);
+  }, [dispatch, testId, navigate, successUpdate, questionId, question]);
+
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
       updateQuestion({
-        _id: questionId,
-        content,
-        image,
+        testId,
+        questionId,
+        question: { content, image },
       })
     );
   };
-
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
     const formData = new FormData();
@@ -91,62 +77,72 @@ const EditQuestionScreen = () => {
     }
   };
 
+  const createAnswerHandler = () => {
+    dispatch(createAnswer({ testId, questionId }));
+  };
   return (
     <>
-      <Link to="/admin/tests/list" className="btn btn-light my-3">
-        {t("editTestScreen.return")}
+      <Link
+        to={`/admin/tests/${testId}/questions`}
+        className="btn btn-light my-3"
+      >
+        {t("return")}
       </Link>
       <FormContainer>
-        <h1>{t("editTestScreen.editQuestion")}</h1>
-        {message && <Message variant="danger"> {message} </Message>}
-        {loadingUpdate && <Loader />}
-        {errorUpdate && <Message variant="danger"> {errorUpdate} </Message>}
-        {}
-        {error &&
-          error.split(",").map((errorMessage) => (
-            <Message key={errorMessage} variant="danger">
-              {" "}
-              {errorMessage.trim().replace("Path ", "")}{" "}
-            </Message>
-          ))}
-        {loading ? (
-          <Loader />
-        ) : (
-          <Form onSubmit={submitHandler}>
-            <Form.Group controlId="content" className="pt-2">
-              <Form.Label>{t("question")}</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Name"
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-            <Form.Group controlId="image" className="pt-2">
-              <Form.Label>{t("image")}</Form.Label>
-              <Form.Control
-                type="string"
-                placeholder="Image url"
-                disabled={true}
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-              ></Form.Control>
-              <Form.Control
-                type="file"
-                label="Choose File"
-                onChange={uploadFileHandler}
-              ></Form.Control>
-              {uploading && <Loader />}
-            </Form.Group>
-            <Button
-              type="submit"
-              variant="primary"
-              className="text-center my-2"
-            >
-              {t("update")}
-            </Button>
-          </Form>
-        )}
+        <h1>{t("editTestQuestionScreen.editQuestion")}</h1>
+        <Form onSubmit={submitHandler}>
+          <Form.Group controlId="content" className="pt-2">
+            <Form.Label>{t("name")}</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Content"
+              onChange={(e) => setContent(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group controlId="image" className="pt-2">
+            <Form.Label>{t("image")}</Form.Label>
+            <Form.Control
+              type="string"
+              placeholder="Image url"
+              disabled={true}
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
+            ></Form.Control>
+            <Form.Control
+              type="file"
+              label="Choose File"
+              onChange={uploadFileHandler}
+            ></Form.Control>
+            {question.answers
+              ? question.answers.map((answer, index) => (
+                  <Form.Group
+                    key={answer._id}
+                    controlId={`answers`}
+                    className="pt-2"
+                  >
+                    <Form.Label>{t("answer") + " " + index}</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder={`answer_${index}`}
+                      onChange={(e) => setAnswer(index, e.target.value)}
+                    ></Form.Control>
+                  </Form.Group>
+                ))
+              : ""}
+
+            {uploading && <Loader />}
+          </Form.Group>
+          <Button type="submit" variant="primary" className="text-center my-2">
+            {t("update")}
+          </Button>
+          <Button
+            className="my-3"
+            variant="success"
+            onClick={createAnswerHandler}
+          >
+            <i className="fas fa-plus"> </i> {t("editQuestionScreen.addAnswer")}
+          </Button>
+        </Form>
       </FormContainer>
     </>
   );
