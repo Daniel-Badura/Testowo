@@ -130,7 +130,13 @@ const TestQuestionListScreen = () => {
                           {question.content}{" "}
                         </a>
                       </td>
-                      <td>{question.image}</td>
+                      <td>
+                        <img
+                          style={{ maxWidth: "100px" }}
+                          className="img-fluid"
+                          src={question.image}
+                        />
+                      </td>
                       <td>{question.answers.length}</td>
                       <td>{question.correctAnswers.length}</td>
                       <td>

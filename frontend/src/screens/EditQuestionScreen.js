@@ -186,26 +186,32 @@ const EditQuestionScreen = () => {
                         handleAnswerChange(index, e.target.value)
                       }
                     ></Form.Control>
-                    <Button
-                      variant="outline-danger"
-                      className="btn-sm rounded"
-                      onClick={() => {
-                        deleteAnswerHandler(index);
-                      }}
-                    >
-                      <i className="fas fa-trash big" />
-                    </Button>
+                    <div className="d-flex align-items-center justify-content-between">
+                      <div>
+                        <Form.Check
+                          type="checkbox"
+                          label="Correct"
+                          checked={correctAnswers.some(
+                            (correctAnswer) => correctAnswer._id === answer._id
+                          )}
+                          onChange={(e) =>
+                            handleCorrectAnswers(answer, e.target.checked)
+                          }
+                        />
+                      </div>
 
-                    <Form.Check
-                      type="checkbox"
-                      label="Correct"
-                      checked={correctAnswers.some(
-                        (correctAnswer) => correctAnswer._id === answer._id
-                      )}
-                      onChange={(e) =>
-                        handleCorrectAnswers(answer, e.target.checked)
-                      }
-                    ></Form.Check>
+                      <div>
+                        <Button
+                          variant="outline-danger"
+                          className="btn-sm rounded"
+                          onClick={() => {
+                            deleteAnswerHandler(index);
+                          }}
+                        >
+                          <i className="fas fa-trash big" />
+                        </Button>
+                      </div>
+                    </div>
                   </Form.Group>
                 ))
               : ""}
