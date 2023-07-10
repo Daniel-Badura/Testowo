@@ -23,6 +23,7 @@ import {
   ANSWER_DELETE_REQUEST,
   ANSWER_DELETE_SUCCESS,
   ANSWER_DELETE_FAIL,
+  QUESTION_DETAILS_RESET,
 } from "../constants/questionConstants.js";
 
 export const questionListReducer = (state = { questions: [] }, action) => {
@@ -52,6 +53,8 @@ export const questionDetailsReducer = (
       return { loading: false, question: action.payload };
     case QUESTION_DETAILS_FAIL:
       return { loading: false, error: action.payload };
+    case QUESTION_DETAILS_RESET:
+      return { question: {} };
     default:
       return state;
   }

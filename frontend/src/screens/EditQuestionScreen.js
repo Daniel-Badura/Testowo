@@ -14,6 +14,7 @@ import axios from "axios";
 import Loader from "../components/Loader";
 import {
   ANSWER_CREATE_RESET,
+  QUESTION_DETAILS_RESET,
   QUESTION_UPDATE_RESET,
 } from "../constants/questionConstants";
 
@@ -22,9 +23,10 @@ const EditQuestionScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id: testId, qid: questionId } = useParams();
-  const [content, setContent] = useState();
-  const [answer, setAnswer] = useState();
+  const [content, setContent] = useState("");
+  const [answers, setAnswers] = useState([]);
   const [image, setImage] = useState("");
+  const [correctAnswers, setCorrectAnswers] = useState([]);
   const [uploading, setUploading] = useState("");
   const questionDetails = useSelector((state) => state.questionDetails);
   const { loading, error, question } = questionDetails;
@@ -51,8 +53,14 @@ const EditQuestionScreen = () => {
     } else {
       if (!question || question._id !== questionId) {
         dispatch(getQuestionDetails({ testId, questionId }));
-      } else if (question == 1) {
-        // dispatch(getQuestionDetails({ testId, questionId }));
+      } else {
+        if (!answers.length) {
+          // Check if answers state is empty
+          setCorrectAnswers(question.correctAnswers);
+          setAnswers(question.answers);
+        }
+        setContent(question.content);
+        setImage(question.image);
       }
     }
   }, [
@@ -63,6 +71,7 @@ const EditQuestionScreen = () => {
     questionId,
     question,
     successAnswerCreate,
+    answers,
   ]);
 
   const submitHandler = (e) => {
@@ -71,9 +80,12 @@ const EditQuestionScreen = () => {
       updateQuestion({
         testId,
         questionId,
-        question: { content, image },
+        question: { content, image, answers, correctAnswers },
       })
     );
+    dispatch({ type: ANSWER_CREATE_RESET });
+    dispatch({ type: QUESTION_UPDATE_RESET });
+    dispatch({ type: QUESTION_DETAILS_RESET });
   };
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
@@ -102,8 +114,25 @@ const EditQuestionScreen = () => {
 
   const deleteAnswerHandler = (index) => {
     if (window.confirm(`Confirm removing ${index}`)) {
-      console.log({ testId, questionId, index });
       dispatch(deleteAnswer({ testId, questionId, index }));
+    }
+  };
+  const handleAnswerChange = (index, value) => {
+    const updatedAnswers = [...answers];
+    updatedAnswers[index] = { ...updatedAnswers[index], answerText: value };
+    setAnswers(updatedAnswers);
+  };
+
+  const handleCorrectAnswers = (answer, checked) => {
+    if (checked) {
+      // Add the answer to correctAnswers
+      setCorrectAnswers([...correctAnswers, answer]);
+    } else {
+      // Remove the answer from correctAnswers
+      const updatedCorrectAnswers = correctAnswers.filter(
+        (correctAnswer) => correctAnswer._id !== answer._id
+      );
+      setCorrectAnswers(updatedCorrectAnswers);
     }
   };
 
@@ -119,10 +148,11 @@ const EditQuestionScreen = () => {
         <h1>{t("editTestQuestionScreen.editQuestion")}</h1>
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="content" className="pt-2">
-            <Form.Label>{t("name")}</Form.Label>
+            <Form.Label>{t("question")}</Form.Label>
             <Form.Control
               type="text"
               placeholder="Content"
+              value={content}
               onChange={(e) => setContent(e.target.value)}
             ></Form.Control>
           </Form.Group>
@@ -151,7 +181,10 @@ const EditQuestionScreen = () => {
                     <Form.Control
                       type="text"
                       placeholder={`answer_${index}`}
-                      onChange={(e) => setAnswer(index, e.target.value)}
+                      value={answers[index]?.answerText || ""}
+                      onChange={(e) =>
+                        handleAnswerChange(index, e.target.value)
+                      }
                     ></Form.Control>
                     <Button
                       variant="outline-danger"
@@ -162,10 +195,20 @@ const EditQuestionScreen = () => {
                     >
                       <i className="fas fa-trash big" />
                     </Button>
+
+                    <Form.Check
+                      type="checkbox"
+                      label="Correct"
+                      checked={correctAnswers.some(
+                        (correctAnswer) => correctAnswer._id === answer._id
+                      )}
+                      onChange={(e) =>
+                        handleCorrectAnswers(answer, e.target.checked)
+                      }
+                    ></Form.Check>
                   </Form.Group>
                 ))
               : ""}
-
             {uploading && <Loader />}
           </Form.Group>
           <Button type="submit" variant="primary" className="text-center my-2">
