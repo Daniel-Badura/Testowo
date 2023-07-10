@@ -20,6 +20,9 @@ import {
   ANSWER_CREATE_SUCCESS,
   ANSWER_CREATE_FAIL,
   ANSWER_CREATE_RESET,
+  ANSWER_DELETE_REQUEST,
+  ANSWER_DELETE_SUCCESS,
+  ANSWER_DELETE_FAIL,
 } from "../constants/questionConstants.js";
 
 export const questionListReducer = (state = { questions: [] }, action) => {
@@ -107,6 +110,19 @@ export const answerCreateReducer = (state = {}, action) => {
       return { loading: false, error: action.payload };
     case ANSWER_CREATE_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const answerDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ANSWER_DELETE_REQUEST:
+      return { loading: true };
+    case ANSWER_DELETE_SUCCESS:
+      return { loading: false, success: true };
+    case ANSWER_DELETE_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

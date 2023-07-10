@@ -48,9 +48,7 @@ const TestQuestionListScreen = () => {
       navigate("/login");
     }
     if (created) {
-      navigate(
-        `/admin/questions/${testId}/questions/${createdQuestion._id}/edit`
-      );
+      navigate(`/admin/tests/${testId}/questions/${createdQuestion._id}/edit`);
     } else {
       dispatch(listQuestions(testId));
     }

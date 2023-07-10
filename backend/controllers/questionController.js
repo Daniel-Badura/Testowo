@@ -104,8 +104,6 @@ export const deleteQuestion = asyncHandler(async (req, res) => {
     { _id: testId },
     { $pull: { questions: { _id: questionId } } }
   );
-  const tests = await Test.findById(testId);
-  console.log(tests);
   if (test) {
     res.json({ message: "Question removed" });
   } else {
@@ -118,13 +116,24 @@ export const deleteQuestion = asyncHandler(async (req, res) => {
 // @route       PUT /api/tests/:id/questions/:qid
 // @access      Private/Admin
 export const updateQuestion = asyncHandler(async (req, res) => {
-  const { content, description, image } = req.body;
-  const question = await Question.findById(req.params.qid);
-  if (question) {
-    question.content = description;
-    question.image = image;
+  const { content, image } = req.body;
+  const testId = req.params.id;
+  const qid = req.params.qid;
+  const test = await Test.findById(testId);
+  const updateQuestion = await Question.findById(req.params.qid);
+  if (updateQuestion) {
+    updateQuestion.content = content;
+    updateQuestion.image = image;
 
-    const updatedTest = await question.save();
+    const updatedTest = await updateQuestion.save();
+
+    const index = test.questions.findIndex((object) => {
+      return object.id === qid;
+    });
+    test.questions.splice(index, 1);
+    test.questions.push(updateQuestion);
+
+    await test.save();
     res.status(201).json(updatedTest);
   } else {
     res.status(404);
@@ -151,6 +160,20 @@ export const createAnswer = asyncHandler(async (req, res) => {
     await test.save();
 
     res.status(201).json(question);
+  } else {
+    res.status(404);
+    throw new Error("Test not found");
+  }
+});
+
+export const deleteAnswer = asyncHandler(async (req, res) => {
+  const testId = req.params.id;
+  const questionId = req.params.qid;
+  const index = req.params.index;
+  console.log(index);
+  const test = await Test.updateOne({ _id: testId }, { questions: { $pull } });
+  if (test) {
+    res.json({ message: "Question removed" });
   } else {
     res.status(404);
     throw new Error("Test not found");

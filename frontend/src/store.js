@@ -27,6 +27,7 @@ import {
   questionUpdateReducer,
   questionCreateReducer,
   answerCreateReducer,
+  answerDeleteReducer,
 } from "./reducers/questionReducers";
 
 const middleware = [thunk];
@@ -50,10 +51,10 @@ const reducer = combineReducers({
   questionList: questionListReducer,
   questionDetails: questionDetailsReducer,
   questionCreate: questionCreateReducer,
-
   questionUpdate: questionUpdateReducer,
   questionDelete: questionDeleteReducer,
   answerCreate: answerCreateReducer,
+  answerDelete: answerDeleteReducer,
 });
 // localStorage.removeItem('userInfo'); web;
 

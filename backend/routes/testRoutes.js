@@ -17,6 +17,7 @@ import {
   createQuestion,
   getQuestions,
   createAnswer,
+  deleteAnswer,
 } from "../controllers/questionController.js";
 import { authenticator, isAdmin } from "../middleware/authMiddleware.js";
 const router = express.Router();
@@ -41,4 +42,5 @@ router
   .delete(authenticator, deleteQuestion)
   .put(authenticator, updateQuestion)
   .post(authenticator, createAnswer);
+router.route("/:id/questions/:qid/:index").delete(authenticator, deleteAnswer);
 export default router;

@@ -18,6 +18,9 @@ import {
   ANSWER_CREATE_REQUEST,
   ANSWER_CREATE_SUCCESS,
   ANSWER_CREATE_FAIL,
+  ANSWER_DELETE_REQUEST,
+  ANSWER_DELETE_SUCCESS,
+  ANSWER_DELETE_FAIL,
 } from "../constants/questionConstants.js";
 
 export const listQuestions = (testId) => async (dispatch) => {
@@ -193,6 +196,39 @@ export const createAnswer =
     } catch (error) {
       dispatch({
         type: ANSWER_CREATE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+
+export const deleteAnswer =
+  ({ testId, questionId, index }) =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: ANSWER_DELETE_REQUEST,
+      });
+      const {
+        userLogin: { userInfo },
+      } = getState();
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      await axios.delete(
+        `/api/tests/${testId}/questions/${questionId}/${index}`,
+        config
+      );
+      dispatch({
+        type: ANSWER_DELETE_SUCCESS,
+      });
+    } catch (error) {
+      dispatch({
+        type: ANSWER_DELETE_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message

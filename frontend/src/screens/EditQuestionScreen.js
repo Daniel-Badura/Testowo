@@ -6,6 +6,7 @@ import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createAnswer,
+  deleteAnswer,
   getQuestionDetails,
   updateQuestion,
 } from "../actions/questionActions";
@@ -43,7 +44,7 @@ const EditQuestionScreen = () => {
   useEffect(() => {
     if (successUpdate) {
       dispatch({ type: QUESTION_UPDATE_RESET });
-      navigate(`/admin/tests/${testId}/questions/${questionId}`);
+      navigate(`/admin/tests/${testId}/questions`);
     } else if (successAnswerCreate) {
       dispatch({ type: ANSWER_CREATE_RESET });
       dispatch(getQuestionDetails({ testId, questionId }));
@@ -98,6 +99,14 @@ const EditQuestionScreen = () => {
   const createAnswerHandler = () => {
     dispatch(createAnswer({ testId, questionId }));
   };
+
+  const deleteAnswerHandler = (index) => {
+    if (window.confirm(`Confirm removing ${index}`)) {
+      console.log({ testId, questionId, index });
+      dispatch(deleteAnswer({ testId, questionId, index }));
+    }
+  };
+
   return (
     <>
       <Link
@@ -144,6 +153,15 @@ const EditQuestionScreen = () => {
                       placeholder={`answer_${index}`}
                       onChange={(e) => setAnswer(index, e.target.value)}
                     ></Form.Control>
+                    <Button
+                      variant="outline-danger"
+                      className="btn-sm rounded"
+                      onClick={() => {
+                        deleteAnswerHandler(index);
+                      }}
+                    >
+                      <i className="fas fa-trash big" />
+                    </Button>
                   </Form.Group>
                 ))
               : ""}
