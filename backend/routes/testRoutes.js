@@ -18,6 +18,7 @@ import {
   getQuestions,
   createAnswer,
   deleteAnswer,
+  getTestQuestions,
 } from "../controllers/questionController.js";
 import { authenticator, isAdmin } from "../middleware/authMiddleware.js";
 const router = express.Router();
@@ -32,6 +33,7 @@ router
   .get(getTest)
   .delete(authenticator, isAdmin, deleteTest)
   .put(authenticator, isAdmin, updateTest);
+router.route("/:id/test").get(authenticator, getTestQuestions);
 router
   .route("/:id/questions")
   .get(getQuestions)
@@ -45,5 +47,5 @@ router
 router
   .route("/:id/questions/:qid/:aid")
   .delete(authenticator, isAdmin, deleteAnswer);
-router.route("/:id/questions/test").get(authenticator);
+
 export default router;

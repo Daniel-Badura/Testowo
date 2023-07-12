@@ -149,7 +149,7 @@ export const testQuestionDetailsReducer = (
     case TEST_QUESTION_DETAILS_REQUEST:
       return { loading: true, ...state };
     case TEST_QUESTION_DETAILS_SUCCESS:
-      return { loading: false, question: action.payload };
+      return { loading: false, test: action.payload };
     case TEST_QUESTION_DETAILS_FAIL:
       return { loading: false, error: action.payload };
     case TEST_QUESTION_DETAILS_RESET:

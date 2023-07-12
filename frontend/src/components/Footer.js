@@ -3,9 +3,8 @@ import { Col, Row } from "react-bootstrap";
 
 const Footer = () => {
   return (
-    <Row>
+    <Row className="text-center">
       <Col className="text-right py-3">Copyright &copy; Testowo</Col>
-      <Col></Col>
     </Row>
   );
 };

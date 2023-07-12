@@ -58,7 +58,6 @@ function App() {
               element={<HomeScreen />}
             />{" "}
             <Route path="/page/:pageNumber" element={<HomeScreen />} />
-            <Route path="/page/:pageNumber" element={<HomeScreen />} />
             <Route path="/tests/:id/test" element={<TestQuestionScreen />} />
           </Routes>
         </Container>

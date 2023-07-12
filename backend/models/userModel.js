@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { transporter, mailOptions } from "../config/nodemailer.js";
 import { generateToken } from "../config/tokenGenerator.js";
 import { testSchema } from "./testModel.js";
+import { questionSchema } from "./questionModel.js";
 
 const userSchema = mongoose.Schema(
   {
@@ -45,6 +46,7 @@ const userSchema = mongoose.Schema(
       default: false,
       createdAt: { type: Date, expires: "1d", default: Date.now },
     },
+    activeTest: [testSchema],
     enrolledTests: [testSchema],
   },
   {

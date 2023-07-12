@@ -1,6 +1,8 @@
 import asyncHandler from "express-async-handler";
 import Test from "../models/testModel.js";
 import Question, { Answer, answerSchema } from "../models/questionModel.js";
+import User from "../models/userModel.js";
+import e from "express";
 
 export const getQuestions = asyncHandler(async (req, res) => {
   const test = await Test.findById(req.params.id);
@@ -174,11 +176,37 @@ export const deleteAnswer = asyncHandler(async (req, res) => {
 
 export const getTestQuestions = asyncHandler(async (req, res) => {
   const test = await Test.findById(req.params.id);
-  console.log(test);
-  if (test) {
-    res.json(test);
+  const user = await User.findById(req.user._id);
+  // const questionNumber = req.query.question || 0;
+  if (user) {
+    if (test) {
+      if (user.activeTest == [] || !user.activeTest) {
+        // -----------Shuffle-----------------
+        function shuffleArray(array) {
+          var m = array.length,
+            t,
+            i;
+          while (m) {
+            i = Math.floor(Math.random() * m--);
+            t = array[m];
+            array[m] = array[i];
+            array[i] = t;
+          }
+          return array;
+        }
+        // ------------------------------------
+        const questions = shuffleArray(test.questions);
+        test.questions = questions;
+        user.activeTest = test;
+        await user.save();
+      }
+      res.json(test);
+    } else {
+      res.status(404);
+      throw new Error("Test not found");
+    }
   } else {
     res.status(404);
-    throw new Error("Questions not found");
+    throw new Error("User not found");
   }
 });

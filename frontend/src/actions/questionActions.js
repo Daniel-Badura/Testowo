@@ -241,13 +241,27 @@ export const deleteAnswer =
   };
 
 export const getTestQuestionDetails =
-  ({ testId, questionId }) =>
-  async (dispatch) => {
+  ({ keyword = "", testId }) =>
+  async (dispatch, getState) => {
     try {
       dispatch({
         type: TEST_QUESTION_DETAILS_REQUEST,
       });
-      const { data } = await axios.get(`/api/tests/${testId}/questions`);
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      const { data } = await axios.get(
+        `/api/tests/${testId}/test?question=${keyword}`,
+        config
+      );
       dispatch({
         type: TEST_QUESTION_DETAILS_SUCCESS,
         payload: data,
