@@ -28,6 +28,7 @@ import {
   questionCreateReducer,
   answerCreateReducer,
   answerDeleteReducer,
+  testQuestionDetailsReducer,
 } from "./reducers/questionReducers";
 
 const middleware = [thunk];
@@ -55,6 +56,7 @@ const reducer = combineReducers({
   questionDelete: questionDeleteReducer,
   answerCreate: answerCreateReducer,
   answerDelete: answerDeleteReducer,
+  testQuestionDetails: testQuestionDetailsReducer,
 });
 // localStorage.removeItem('userInfo'); web;
 

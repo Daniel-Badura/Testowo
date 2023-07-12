@@ -2,36 +2,6 @@ import asyncHandler from "express-async-handler";
 import Test from "../models/testModel.js";
 import Question, { Answer, answerSchema } from "../models/questionModel.js";
 
-// @desc        get questions
-// @route       GET /api/tests/:id/questions
-// @access      Private
-
-// export const getQuestions = asyncHandler(async (req, res) => {
-//   const testId = req.params.id;
-//   const pageSize = 10;
-//   const page = req.query.pageNumber || 1;
-
-//   const content = req.query.keyword
-//     ? {
-//         content: {
-//           $regex: req.query.keyword,
-//           $options: "i",
-//         },
-//       }
-//     : {};
-//   const search = [{ ...content }, { ...answers }];
-//   const count = await Question.countDocuments({
-//     test: testId,
-//     $or: search,
-//   });
-//   const questions = await Question.find({
-//     test: testId,
-//     $or: search,
-//   })
-//     .limit(pageSize)
-//     .skip(pageSize * (page - 1));
-//   res.json({ questions, page, pages: Math.ceil(count / pageSize) });
-// });
 export const getQuestions = asyncHandler(async (req, res) => {
   const test = await Test.findById(req.params.id);
 
@@ -78,8 +48,8 @@ export const createQuestion = asyncHandler(async (req, res) => {
   if (test) {
     const question = new Question({
       test: testId,
+      image: "",
       content: "New Question",
-      image: "image",
       answers: [],
       correctAnswers: [],
     });
@@ -112,7 +82,7 @@ export const deleteQuestion = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc        Update question
+// @desc        Update Question
 // @route       PUT /api/tests/:id/questions/:qid
 // @access      Private/Admin
 export const updateQuestion = asyncHandler(async (req, res) => {
@@ -126,19 +96,23 @@ export const updateQuestion = asyncHandler(async (req, res) => {
     updateQuestion.image = image;
     updateQuestion.answers = answers;
     updateQuestion.correctAnswers = correctAnswers;
-    const updatedTest = await updateQuestion.save();
+    const updatedQuestion = await updateQuestion.save();
     const index = test.questions.findIndex((object) => {
       return object.id === qid;
     });
     test.questions.splice(index, 1);
     test.questions.push(updateQuestion);
     await test.save();
-    res.status(201).json(updatedTest);
+    res.status(201).json(updatedQuestion);
   } else {
     res.status(404);
     throw new Error("Question not found");
   }
 });
+
+// @desc        Create Answer
+// @route       POST /api/tests/:id/questions/:qid
+// @access      Private/Admin
 
 export const createAnswer = asyncHandler(async (req, res) => {
   const testId = req.params.id;
@@ -146,7 +120,7 @@ export const createAnswer = asyncHandler(async (req, res) => {
   const test = await Test.findById(testId);
   // console.log(test.questions.find((item) => item._id === questionId));
   const answer = new Answer({
-    answerText: "whatever",
+    answerText: "new answer",
   });
   if (test) {
     // const test = await Test.updateOne(
@@ -165,16 +139,46 @@ export const createAnswer = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc        Delete Answer
+// @route       Delete /api/tests/:id/questions/:qid/:aid
+// @access      Private/Admin
+
 export const deleteAnswer = asyncHandler(async (req, res) => {
   const testId = req.params.id;
-  const questionId = req.params.qid;
-  const index = req.params.index;
-  console.log(index);
-  const test = await Test.updateOne({ _id: testId }, { questions: { $pull } });
-  if (test) {
-    res.json({ message: "Question removed" });
+  const qid = req.params.qid;
+  const answerId = req.params.aid;
+  const test = await Test.findById(testId);
+  const updateQuestion = await Question.findById(req.params.qid);
+  if (updateQuestion) {
+    const question = test.questions.find((q) => {
+      return q.id === qid;
+    });
+    const answers = question.answers.filter((a) => {
+      return a._id != answerId;
+    });
+    updateQuestion.answers = answers;
+    const updatedQuestion = await updateQuestion.save();
+    question.answers = answers;
+    const index = test.questions.findIndex((object) => {
+      return object.id === qid;
+    });
+    test.questions.splice(index, 1);
+    test.questions.push(updateQuestion);
+    await test.save();
+    res.status(201).json(updatedQuestion);
   } else {
     res.status(404);
-    throw new Error("Test not found");
+    throw new Error("Question not found");
+  }
+});
+
+export const getTestQuestions = asyncHandler(async (req, res) => {
+  const test = await Test.findById(req.params.id);
+  console.log(test);
+  if (test) {
+    res.json(test);
+  } else {
+    res.status(404);
+    throw new Error("Questions not found");
   }
 });

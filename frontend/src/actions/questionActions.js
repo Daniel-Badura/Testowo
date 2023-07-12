@@ -21,6 +21,9 @@ import {
   ANSWER_DELETE_REQUEST,
   ANSWER_DELETE_SUCCESS,
   ANSWER_DELETE_FAIL,
+  TEST_QUESTION_DETAILS_REQUEST,
+  TEST_QUESTION_DETAILS_SUCCESS,
+  TEST_QUESTION_DETAILS_FAIL,
 } from "../constants/questionConstants.js";
 
 export const listQuestions = (testId) => async (dispatch) => {
@@ -205,7 +208,7 @@ export const createAnswer =
   };
 
 export const deleteAnswer =
-  ({ testId, questionId, index }) =>
+  ({ testId, questionId, answerId }) =>
   async (dispatch, getState) => {
     try {
       dispatch({
@@ -220,7 +223,7 @@ export const deleteAnswer =
         },
       };
       await axios.delete(
-        `/api/tests/${testId}/questions/${questionId}/${index}`,
+        `/api/tests/${testId}/questions/${questionId}/${answerId}`,
         config
       );
       dispatch({
@@ -229,6 +232,29 @@ export const deleteAnswer =
     } catch (error) {
       dispatch({
         type: ANSWER_DELETE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+
+export const getTestQuestionDetails =
+  ({ testId, questionId }) =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: TEST_QUESTION_DETAILS_REQUEST,
+      });
+      const { data } = await axios.get(`/api/tests/${testId}/questions`);
+      dispatch({
+        type: TEST_QUESTION_DETAILS_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: TEST_QUESTION_DETAILS_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message

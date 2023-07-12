@@ -67,7 +67,7 @@ const TestScreen = () => {
   };
   const enrollTestHandler = () => {
     dispatch(enrollTest(test._id));
-    navigate(`/tests/${test._id}/0`);
+    navigate(`/tests/${test._id}/test`);
   };
   const ratingHandler = (rate) => {
     setRating(rate);

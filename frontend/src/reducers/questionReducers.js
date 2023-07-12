@@ -24,6 +24,10 @@ import {
   ANSWER_DELETE_SUCCESS,
   ANSWER_DELETE_FAIL,
   QUESTION_DETAILS_RESET,
+  TEST_QUESTION_DETAILS_REQUEST,
+  TEST_QUESTION_DETAILS_SUCCESS,
+  TEST_QUESTION_DETAILS_FAIL,
+  TEST_QUESTION_DETAILS_RESET,
 } from "../constants/questionConstants.js";
 
 export const questionListReducer = (state = { questions: [] }, action) => {
@@ -60,7 +64,10 @@ export const questionDetailsReducer = (
   }
 };
 
-export const questionCreateReducer = (state = {}, action) => {
+export const questionCreateReducer = (
+  state = { question: { answers: [], correctAnswers: [] } },
+  action
+) => {
   switch (action.type) {
     case QUESTION_CREATE_REQUEST:
       return { loading: true, ...state };
@@ -75,7 +82,10 @@ export const questionCreateReducer = (state = {}, action) => {
   }
 };
 
-export const questionUpdateReducer = (state = { question: {} }, action) => {
+export const questionUpdateReducer = (
+  state = { question: { answers: [], correctAnswers: [] } },
+  action
+) => {
   switch (action.type) {
     case QUESTION_UPDATE_REQUEST:
       return { loading: true };
@@ -126,6 +136,24 @@ export const answerDeleteReducer = (state = {}, action) => {
       return { loading: false, success: true };
     case ANSWER_DELETE_FAIL:
       return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const testQuestionDetailsReducer = (
+  state = { questions: [] },
+  action
+) => {
+  switch (action.type) {
+    case TEST_QUESTION_DETAILS_REQUEST:
+      return { loading: true, ...state };
+    case TEST_QUESTION_DETAILS_SUCCESS:
+      return { loading: false, question: action.payload };
+    case TEST_QUESTION_DETAILS_FAIL:
+      return { loading: false, error: action.payload };
+    case TEST_QUESTION_DETAILS_RESET:
+      return { question: {} };
     default:
       return state;
   }

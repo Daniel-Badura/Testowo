@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
 import Message from "../components/Message";
@@ -6,13 +6,22 @@ import Loader from "../components/Loader";
 import Meta from "../components/Meta";
 import { useTranslation } from "react-i18next";
 import Test from "../components/Test";
+import { listTests } from "../actions/testActions";
+import { useParams } from "react-router-dom";
+import Paginate from "../components/Paginate";
 
 const HomeScreen = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
+  const { keyword, pageNumber } = useParams();
+
   const testList = useSelector((state) => state.testList);
-  const { loading, error, tests } = testList;
+  const { loading, error, tests, pages, page } = testList;
+
+  useEffect(() => {
+    dispatch(listTests(keyword, pageNumber));
+  }, [dispatch, keyword, pageNumber]);
 
   return (
     <React.Fragment>
@@ -37,6 +46,11 @@ const HomeScreen = () => {
               </Col>
             ))}
           </Row>
+          <Paginate
+            pages={pages}
+            page={page}
+            keyword={keyword ? keyword : ""}
+          />
         </React.Fragment>
       )}
     </React.Fragment>

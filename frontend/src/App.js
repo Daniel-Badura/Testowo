@@ -20,6 +20,7 @@ import TestListScreen from "./screens/TestListScreen";
 import TestQuestionListScreen from "./screens/TestQuestionListScreen";
 import TestScreen from "./screens/TestScreen";
 import EditQuestionScreen from "./screens/EditQuestionScreen";
+import TestQuestionScreen from "./screens/TestQuestionScreen";
 function App() {
   const { t } = useTranslation();
 
@@ -51,12 +52,14 @@ function App() {
               path="/admin/tests/:id/questions/:qid/edit"
               element={<EditQuestionScreen />}
             />
+            <Route path="/search/:keyword" element={<HomeScreen />} exact />
             <Route
               path="/search/:keyword/page/:pageNumber"
               element={<HomeScreen />}
             />{" "}
             <Route path="/page/:pageNumber" element={<HomeScreen />} />
             <Route path="/page/:pageNumber" element={<HomeScreen />} />
+            <Route path="/tests/:id/test" element={<TestQuestionScreen />} />
           </Routes>
         </Container>
         <Footer />

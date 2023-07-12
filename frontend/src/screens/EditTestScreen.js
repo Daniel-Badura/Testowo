@@ -177,19 +177,21 @@ const EditTestScreen = () => {
                 onChange={(e) => setFeatured(e.target.checked)}
               ></Form.Check>
             </Form.Group>
-            <Button
-              type="submit"
-              variant="primary"
-              className="text-center my-2"
-            >
-              {t("update")}
-            </Button>
-            <Link
-              to={`/admin/tests/${testId}/questions`}
-              className="btn btn-light my-3"
-            >
-              {t("editTestScreen.editQuestions")}
-            </Link>
+            <div className="d-flex align-items-center justify-content-between">
+              <Button
+                type="submit"
+                variant="primary"
+                className="text-center my-2"
+              >
+                {t("update")}
+              </Button>
+              <Link
+                to={`/admin/tests/${testId}/questions`}
+                className="btn btn-light my-3"
+              >
+                {t("editTestScreen.editQuestions")}
+              </Link>
+            </div>
           </Form>
         )}
       </FormContainer>

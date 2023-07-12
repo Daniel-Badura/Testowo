@@ -46,7 +46,7 @@ const EditQuestionScreen = () => {
   useEffect(() => {
     if (successUpdate) {
       dispatch({ type: QUESTION_UPDATE_RESET });
-      navigate(`/admin/tests/${testId}/questions`);
+      navigate(`/admin/tests/${testId}/questions/${questionId}/edit`);
     } else if (successAnswerCreate) {
       dispatch({ type: ANSWER_CREATE_RESET });
       dispatch(getQuestionDetails({ testId, questionId }));
@@ -56,6 +56,7 @@ const EditQuestionScreen = () => {
       } else {
         if (!answers.length) {
           // Check if answers state is empty
+
           setCorrectAnswers(question.correctAnswers);
           setAnswers(question.answers);
         }
@@ -112,9 +113,17 @@ const EditQuestionScreen = () => {
     dispatch(createAnswer({ testId, questionId }));
   };
 
-  const deleteAnswerHandler = (index) => {
+  const deleteAnswerHandler = (index, answer) => {
     if (window.confirm(`Confirm removing ${index}`)) {
-      dispatch(deleteAnswer({ testId, questionId, index }));
+      dispatch(deleteAnswer({ testId, questionId, answerId: answer._id }));
+      const updatedAnswers = answers.filter((ans) => ans._id !== answer._id);
+      setAnswers(updatedAnswers);
+      console.log(updatedAnswers);
+      const updatedCorrectAnswers = correctAnswers.filter(
+        (correctAnswer) => correctAnswer._id !== answer._id
+      );
+      setCorrectAnswers(updatedCorrectAnswers);
+      dispatch({ type: QUESTION_DETAILS_RESET });
     }
   };
   const handleAnswerChange = (index, value) => {
@@ -156,67 +165,84 @@ const EditQuestionScreen = () => {
               onChange={(e) => setContent(e.target.value)}
             ></Form.Control>
           </Form.Group>
+          <hr />
           <Form.Group controlId="image" className="pt-2">
-            <Form.Label>{t("image")}</Form.Label>
-            <Form.Control
-              type="string"
-              placeholder="Image url"
-              disabled={true}
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
-            ></Form.Control>
-            <Form.Control
-              type="file"
-              label="Choose File"
-              onChange={uploadFileHandler}
-            ></Form.Control>
-            {question.answers
-              ? question.answers.map((answer, index) => (
-                  <Form.Group
-                    key={answer._id}
-                    controlId={`answers`}
-                    className="pt-2"
-                  >
-                    <Form.Label>{t("answer") + " " + index}</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder={`answer_${index}`}
-                      value={answers[index]?.answerText || ""}
-                      onChange={(e) =>
-                        handleAnswerChange(index, e.target.value)
-                      }
-                    ></Form.Control>
-                    <div className="d-flex align-items-center justify-content-between">
-                      <div>
-                        <Form.Check
-                          type="checkbox"
-                          label="Correct"
-                          checked={correctAnswers.some(
-                            (correctAnswer) => correctAnswer._id === answer._id
-                          )}
-                          onChange={(e) =>
-                            handleCorrectAnswers(answer, e.target.checked)
-                          }
-                        />
-                      </div>
-
-                      <div>
-                        <Button
-                          variant="outline-danger"
-                          className="btn-sm rounded"
-                          onClick={() => {
-                            deleteAnswerHandler(index);
-                          }}
-                        >
-                          <i className="fas fa-trash big" />
-                        </Button>
-                      </div>
-                    </div>
-                  </Form.Group>
-                ))
-              : ""}
-            {uploading && <Loader />}
+            <div className="d-flex align-items-center justify-content-between">
+              {/* <Form.Label>{t("image")}</Form.Label> */}
+              <div>
+                <Form.Control
+                  type="string"
+                  placeholder="Image url"
+                  disabled={true}
+                  value={image}
+                  onChange={(e) => setImage(e.target.value)}
+                ></Form.Control>
+                <Form.Control
+                  type="file"
+                  label="Choose File"
+                  onChange={uploadFileHandler}
+                ></Form.Control>
+              </div>
+              <div>
+                {image ? (
+                  <img
+                    style={{ maxWidth: "100px" }}
+                    className="img-fluid"
+                    src={image}
+                    alt=""
+                  />
+                ) : (
+                  ""
+                )}
+              </div>
+            </div>
           </Form.Group>
+
+          {question.answers
+            ? question.answers.map((answer, index) => (
+                <Form.Group
+                  key={answer._id}
+                  controlId={`answers`}
+                  className="pt-2"
+                >
+                  <Form.Label>{t("answer") + " " + index}</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder={`answer_${index}`}
+                    value={answers[index]?.answerText || ""}
+                    onChange={(e) => handleAnswerChange(index, e.target.value)}
+                  ></Form.Control>
+                  <div className="d-flex align-items-center justify-content-between">
+                    <div>
+                      <Form.Check
+                        type="checkbox"
+                        label="Correct"
+                        checked={correctAnswers.some(
+                          (correctAnswer) => correctAnswer._id === answer._id
+                        )}
+                        onChange={(e) =>
+                          handleCorrectAnswers(answer, e.target.checked)
+                        }
+                      />
+                    </div>
+
+                    <div>
+                      <Button
+                        variant="outline-danger"
+                        className="btn-sm rounded"
+                        onClick={() => {
+                          deleteAnswerHandler(index, answer);
+                        }}
+                      >
+                        <i className="fas fa-trash big" />
+                      </Button>
+                    </div>
+                  </div>
+                </Form.Group>
+              ))
+            : ""}
+          {uploading && <Loader />}
+
           <Button type="submit" variant="primary" className="text-center my-2">
             {t("update")}
           </Button>

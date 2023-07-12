@@ -39,8 +39,11 @@ router
 router
   .route("/:id/questions/:qid")
   .get(getQuestion)
-  .delete(authenticator, deleteQuestion)
-  .put(authenticator, updateQuestion)
-  .post(authenticator, createAnswer);
-router.route("/:id/questions/:qid/:index").delete(authenticator, deleteAnswer);
+  .delete(authenticator, isAdmin, deleteQuestion)
+  .put(authenticator, isAdmin, updateQuestion)
+  .post(authenticator, isAdmin, createAnswer);
+router
+  .route("/:id/questions/:qid/:aid")
+  .delete(authenticator, isAdmin, deleteAnswer);
+router.route("/:id/questions/test").get(authenticator);
 export default router;
