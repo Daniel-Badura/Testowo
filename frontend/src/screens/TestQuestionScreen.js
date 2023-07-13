@@ -17,12 +17,12 @@ const TestQuestionScreen = () => {
   const [questionNumber, setQuestionNumber] = useState(0);
   const testQuestionDetails = useSelector((state) => state.testQuestionDetails);
   const { loading, test } = testQuestionDetails;
-  const { id: testId, question } = useParams();
+  const { id: testId } = useParams();
 
   useEffect(() => {
-    if (test) {
-      dispatch(TEST_QUESTION_DETAILS_RESET);
-    }
+    // if (test) {
+    //   dispatch(TEST_QUESTION_DETAILS_RESET);
+    // }
   }, []);
   const beginTestHandler = () => {
     dispatch(getTestQuestionDetails({ testId }));

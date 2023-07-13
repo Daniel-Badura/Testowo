@@ -174,37 +174,39 @@ export const featuredTests = () => async (dispatch) => {
     });
   }
 };
-export const enrollTest = (id) => async (dispatch, getState) => {
-  try {
-    dispatch({ type: ENROLL_TEST_REQUEST });
-    const {
-      userLogin: { userInfo },
-    } = getState();
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
-    const { data } = await axios.put(
-      `/api/tests/${id}/enroll`,
-      userInfo,
-      config
-    );
-    dispatch({
-      type: ENROLL_TEST_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: ENROLL_TEST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+export const enrollTest =
+  ({ id }) =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({ type: ENROLL_TEST_REQUEST });
+      const {
+        userLogin: { userInfo },
+      } = getState();
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      const { data } = await axios.put(
+        `/api/tests/${id}/enroll`,
+        userInfo,
+        config
+      );
+      dispatch({
+        type: ENROLL_TEST_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ENROLL_TEST_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 export const createTestReview = (id, review) => async (dispatch, getState) => {
   try {
     dispatch({

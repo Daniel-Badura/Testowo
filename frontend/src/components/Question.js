@@ -11,7 +11,7 @@ const Question = ({ questionText, answers, image }) => {
 
           {answers
             ? answers.map((answer) => (
-                <p className="text-start checkbox-container">
+                <p className="text-start checkbox-container" key={answer._id}>
                   <input type="checkbox" name={answer._id} id={answer._id} />
                   <label className="checkbox-label" htmlFor={answer._id}>
                     {answer.answerText}
