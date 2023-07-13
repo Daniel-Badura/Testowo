@@ -23,6 +23,10 @@ import {
 import { REVIEW_CREATE_RESET } from "../constants/testConstants";
 import Meta from "../components/Meta";
 import { useTranslation } from "react-i18next";
+import {
+  QUESTION_DETAILS_RESET,
+  TEST_QUESTION_DETAILS_RESET,
+} from "../constants/questionConstants";
 
 const TestScreen = () => {
   const { t } = useTranslation();
@@ -66,6 +70,8 @@ const TestScreen = () => {
     );
   };
   const enrollTestHandler = () => {
+    dispatch(TEST_QUESTION_DETAILS_RESET);
+    dispatch(QUESTION_DETAILS_RESET);
     dispatch(enrollTest(test._id));
     navigate(`/tests/${test._id}/test`);
   };
