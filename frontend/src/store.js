@@ -29,6 +29,7 @@ import {
   answerCreateReducer,
   answerDeleteReducer,
   testQuestionDetailsReducer,
+  submitAnswersReducer,
 } from "./reducers/questionReducers";
 
 const middleware = [thunk];
@@ -57,6 +58,7 @@ const reducer = combineReducers({
   answerCreate: answerCreateReducer,
   answerDelete: answerDeleteReducer,
   testQuestionDetails: testQuestionDetailsReducer,
+  submitAnswers: submitAnswersReducer,
 });
 // localStorage.removeItem('userInfo'); web;
 

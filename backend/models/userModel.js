@@ -46,7 +46,12 @@ const userSchema = mongoose.Schema(
       default: false,
       createdAt: { type: Date, expires: "1d", default: Date.now },
     },
-    activeTest: [testSchema],
+    activeTest: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "Test",
+    },
+    submitedAnswers: [],
     enrolledTests: [testSchema],
   },
   {

@@ -28,6 +28,10 @@ import {
   TEST_QUESTION_DETAILS_SUCCESS,
   TEST_QUESTION_DETAILS_FAIL,
   TEST_QUESTION_DETAILS_RESET,
+  SUBMIT_ANSWERS_REQUEST,
+  SUBMIT_ANSWERS_SUCCESS,
+  SUBMIT_ANSWERS_FAIL,
+  SUBMIT_ANSWERS_RESET,
 } from "../constants/questionConstants.js";
 
 export const questionListReducer = (state = { questions: [] }, action) => {
@@ -153,6 +157,21 @@ export const testQuestionDetailsReducer = (
     case TEST_QUESTION_DETAILS_FAIL:
       return { loading: false, error: action.payload };
     case TEST_QUESTION_DETAILS_RESET:
+      return { question: {} };
+    default:
+      return state;
+  }
+};
+
+export const submitAnswersReducer = (state = { question: {} }, action) => {
+  switch (action.type) {
+    case SUBMIT_ANSWERS_REQUEST:
+      return { loading: true, ...state };
+    case SUBMIT_ANSWERS_SUCCESS:
+      return { loading: false, question: action.payload };
+    case SUBMIT_ANSWERS_FAIL:
+      return { loading: false, error: action.payload };
+    case SUBMIT_ANSWERS_RESET:
       return { question: {} };
     default:
       return state;

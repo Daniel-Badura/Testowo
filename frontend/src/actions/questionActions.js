@@ -24,6 +24,9 @@ import {
   TEST_QUESTION_DETAILS_REQUEST,
   TEST_QUESTION_DETAILS_SUCCESS,
   TEST_QUESTION_DETAILS_FAIL,
+  SUBMIT_ANSWERS_REQUEST,
+  SUBMIT_ANSWERS_SUCCESS,
+  SUBMIT_ANSWERS_FAIL,
 } from "../constants/questionConstants.js";
 
 export const listQuestions = (testId) => async (dispatch) => {
@@ -269,6 +272,45 @@ export const getTestQuestionDetails =
     } catch (error) {
       dispatch({
         type: TEST_QUESTION_DETAILS_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+
+export const submitAnswers =
+  ({ testId, answeredQuestion }) =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: SUBMIT_ANSWERS_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      const { data } = await axios.put(
+        `/api/tests/${testId}/test/check`,
+        answeredQuestion,
+        config
+      );
+
+      dispatch({
+        type: SUBMIT_ANSWERS_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: SUBMIT_ANSWERS_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message

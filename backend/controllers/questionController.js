@@ -174,6 +174,9 @@ export const deleteAnswer = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc        Get Test Questions
+// @route       GET /api/tests/:id/test
+// @access      Private
 export const getTestQuestions = asyncHandler(async (req, res) => {
   const test = await Test.findById(req.params.id);
   const user = await User.findById(req.user._id);
@@ -197,10 +200,34 @@ export const getTestQuestions = asyncHandler(async (req, res) => {
         // ------------------------------------
         const questions = shuffleArray(test.questions);
         test.questions = questions;
-        user.activeTest = test;
+        user.activeTest = test._id;
         await user.save();
       }
       res.json(test);
+    } else {
+      res.status(404);
+      throw new Error("Test not found");
+    }
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
+// @desc        Submit Test Answers
+// @route       GET /api/tests/:id/test/check
+// @access      Private
+
+export const submitTestAnswers = asyncHandler(async (req, res) => {
+  const test = await Test.findById(req.params.id);
+  const user = await User.findById(req.user._id);
+  console.log(req.body);
+  console.log(user);
+  if (user) {
+    if (test) {
+      user.submitedAnswers.push(req.body);
+      await user.save();
+      res.json(req.body);
     } else {
       res.status(404);
       throw new Error("Test not found");
