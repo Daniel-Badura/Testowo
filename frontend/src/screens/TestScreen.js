@@ -66,7 +66,7 @@ const TestScreen = () => {
     );
   };
   const enrollTestHandler = () => {
-    navigate(`/tests/${testId}/test`);
+    navigate(`/tests/${testId}/test?question=0`);
   };
   const ratingHandler = (rate) => {
     setRating(rate);

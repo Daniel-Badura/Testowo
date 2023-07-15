@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import FormContainer from "../components/FormContainer";
-import { Button, Form } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createAnswer,
@@ -156,21 +156,24 @@ const EditQuestionScreen = () => {
       <FormContainer>
         <h1>{t("editTestQuestionScreen.editQuestion")}</h1>
         <Form onSubmit={submitHandler}>
-          <Form.Group controlId="content" className="pt-2">
+          <Form.Group controlId="content" className="textarea-autosize">
             <Form.Label>{t("question")}</Form.Label>
             <Form.Control
-              type="text"
+              rows={5}
+              className="fs-6 fw-bold"
+              as="textarea"
               placeholder="Content"
               value={content}
               onChange={(e) => setContent(e.target.value)}
             ></Form.Control>
           </Form.Group>
           <hr />
-          <Form.Group controlId="image" className="pt-2">
+          <Form.Group controlId="image" className="">
             <div className="d-flex align-items-center justify-content-between">
               {/* <Form.Label>{t("image")}</Form.Label> */}
               <div>
                 <Form.Control
+                  className="fs-5"
                   type="string"
                   placeholder="Image url"
                   disabled={true}
@@ -178,6 +181,7 @@ const EditQuestionScreen = () => {
                   onChange={(e) => setImage(e.target.value)}
                 ></Form.Control>
                 <Form.Control
+                  className="fs-5"
                   type="file"
                   label="Choose File"
                   onChange={uploadFileHandler}
@@ -200,20 +204,36 @@ const EditQuestionScreen = () => {
 
           {question.answers
             ? question.answers.map((answer, index) => (
-                <Form.Group
-                  key={answer._id}
-                  controlId={`answers`}
-                  className="pt-2"
-                >
-                  <Form.Label>{t("answer") + " " + index}</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder={`answer_${index}`}
-                    value={answers[index]?.answerText || ""}
-                    onChange={(e) => handleAnswerChange(index, e.target.value)}
-                  ></Form.Control>
-                  <div className="d-flex align-items-center justify-content-between">
+                <Row key={answer._id}>
+                  <Col className="col-9 mx-auto">
+                    <Form.Group controlId={`answers`} className=" fs-5">
+                      <Form.Label>{t("answer") + " " + index}</Form.Label>
+                      <Form.Control
+                        className="fs-5 d-flex my-1"
+                        as="textarea"
+                        rows={4}
+                        placeholder={`answer_${index}`}
+                        value={answers[index]?.answerText || ""}
+                        onChange={(e) =>
+                          handleAnswerChange(index, e.target.value)
+                        }
+                      ></Form.Control>
+                      <div className="d-flex align-items-center justify-content-between">
+                        <div></div>
+                      </div>
+                    </Form.Group>
+                  </Col>
+                  <Col className="my-auto col-1 mx-auto">
                     <div>
+                      <Button
+                        variant="outline-danger"
+                        className="btn-sm rounded"
+                        onClick={() => {
+                          deleteAnswerHandler(index, answer);
+                        }}
+                      >
+                        <i className="fas fa-trash big" />
+                      </Button>
                       <Form.Check
                         type="checkbox"
                         label="Correct"
@@ -225,20 +245,9 @@ const EditQuestionScreen = () => {
                         }
                       />
                     </div>
-
-                    <div>
-                      <Button
-                        variant="outline-danger"
-                        className="btn-sm rounded"
-                        onClick={() => {
-                          deleteAnswerHandler(index, answer);
-                        }}
-                      >
-                        <i className="fas fa-trash big" />
-                      </Button>
-                    </div>
-                  </div>
-                </Form.Group>
+                  </Col>
+                  <hr></hr>
+                </Row>
               ))
             : ""}
           {uploading && <Loader />}

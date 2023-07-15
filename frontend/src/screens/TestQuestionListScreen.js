@@ -125,6 +125,8 @@ const TestQuestionListScreen = () => {
                       <td>
                         {" "}
                         <a
+                          style={{ textDecoration: "none" }}
+                          className="fs-6"
                           href={`/admin/tests/${testId}/questions/${question._id}/edit`}
                         >
                           {question.content}{" "}

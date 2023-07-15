@@ -34,7 +34,7 @@ const Test = ({ test }) => {
             <Rating value={test.rating} text={`${test.numReviews}`}></Rating>
           </Card.Text>
           <Card.Text as="h3" className="enlarge move-right">
-            €{test.price}
+            {/* €{test.price} */}
           </Card.Text>
         </Card.Body>
       </Card>
