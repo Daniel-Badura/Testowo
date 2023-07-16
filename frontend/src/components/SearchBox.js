@@ -21,9 +21,10 @@ const SearchBox = () => {
         onChange={(e) => setKeyword(e.target.value)}
         placeholder={t("searchBox.placeholder")}
         className="mr-sm-2
-                 ml-sm-5"
+                 ml-sm-5 
+                 rounded"
       ></Form.Control>
-      <Button type="submit" variant="outline-success" className="p-2">
+      <Button type="submit" variant="outline-success" className="p-2 rounded">
         {t("search")}
       </Button>
     </Form>

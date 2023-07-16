@@ -118,7 +118,6 @@ const EditQuestionScreen = () => {
       dispatch(deleteAnswer({ testId, questionId, answerId: answer._id }));
       const updatedAnswers = answers.filter((ans) => ans._id !== answer._id);
       setAnswers(updatedAnswers);
-      console.log(updatedAnswers);
       const updatedCorrectAnswers = correctAnswers.filter(
         (correctAnswer) => correctAnswer._id !== answer._id
       );

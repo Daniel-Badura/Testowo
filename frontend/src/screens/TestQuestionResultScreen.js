@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Question from "../components/Question";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { getTestQuestionDetails } from "../actions/questionActions";
@@ -7,14 +6,16 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import { Button } from "react-bootstrap";
 import { checkAnswers } from "../actions/testActions";
+import QuestionResult from "../components/QuestionResult";
 
-const TestQuestionScreen = () => {
+const TestQuestionResultScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const questionIndex = Number(searchParams.get("question"));
-
+  const checkedAnswers = useSelector((state) => state.checkedAnswers);
+  const { summary } = checkedAnswers;
   const [questionNumber, setQuestionNumber] = useState(questionIndex);
   const testQuestionDetails = useSelector((state) => state.testQuestionDetails);
   const { loading, test } = testQuestionDetails;
@@ -24,28 +25,21 @@ const TestQuestionScreen = () => {
     dispatch(getTestQuestionDetails({ testId }));
   }, [testId, dispatch, navigate]);
 
-  // const beginTestHandler = () => {
-  //   dispatch(getTestQuestionDetails({ testId }));
-  //   navigate(`/tests/${testId}/test?question=${questionNumber}`);
-  // };
   const previousQuestionHandler = () => {
     if (questionNumber > 0) {
       const newQuestionNumber = questionNumber - 1;
-      navigate(`/tests/${testId}/test?question=${newQuestionNumber}`);
+      navigate(`/tests/${testId}/test/check?question=${newQuestionNumber}`);
       setQuestionNumber(newQuestionNumber);
     }
   };
   const nextQuestionHandler = () => {
     if (questionNumber < test.questions.length - 1) {
       const newQuestionNumber = questionNumber + 1;
-      navigate(`/tests/${testId}/test?question=${newQuestionNumber}`);
+      navigate(`/tests/${testId}/test/check?question=${newQuestionNumber}`);
       setQuestionNumber(newQuestionNumber);
     }
   };
-  const finishTestHandler = () => {
-    dispatch(checkAnswers({ testId }));
-    navigate(`/tests/${testId}/test/check`);
-  };
+
   const { t } = useTranslation();
   return (
     <>
@@ -53,6 +47,13 @@ const TestQuestionScreen = () => {
         <Loader />
       ) : (
         <div className="text-center my-4 ">
+          {test && summary ? (
+            <h1 className="text-danger fs-1 fw-2">
+              Final Score: {summary.score}/{test.questions.length}
+            </h1>
+          ) : (
+            ""
+          )}
           {test ? (
             <div>
               <h1>{test.name}</h1>
@@ -63,7 +64,7 @@ const TestQuestionScreen = () => {
                   "/" +
                   test.questions.length}
               </h4>
-              <Question
+              <QuestionResult
                 questionText={test.questions[questionIndex].content}
                 questionId={test.questions[questionIndex]._id}
                 answers={test.questions[questionIndex].answers}
@@ -78,13 +79,13 @@ const TestQuestionScreen = () => {
                   {t("previous")}
                 </Button>
 
-                <Button
+                {/* <Button
                   className="my-3 rounded"
                   variant="danger"
                   onClick={finishTestHandler}
                 >
                   {t("finish")}
-                </Button>
+                </Button> */}
                 <Button
                   className="my-3 rounded"
                   variant="success"
@@ -97,24 +98,10 @@ const TestQuestionScreen = () => {
           ) : (
             ""
           )}
-
-          {/* <Question questionText={}/> */}
-
-          {/* {!test ? (
-            <Button
-              className="my-3 rounded"
-              variant="success"
-              onClick={beginTestHandler}
-            >
-              {t("begin")}
-            </Button>
-          ) : (
-            ""
-          )} */}
         </div>
       )}
     </>
   );
 };
 
-export default TestQuestionScreen;
+export default TestQuestionResultScreen;

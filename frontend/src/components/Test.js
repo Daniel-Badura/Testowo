@@ -13,7 +13,7 @@ const Test = ({ test }) => {
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
-  const hover = isHovered ? "p-1" : "p-4";
+  const hover = isHovered ? "p-1" : "p-2";
   return (
     <>
       <Card
@@ -26,16 +26,14 @@ const Test = ({ test }) => {
         </Link>
         <Card.Body>
           <Link className="link" to={`/tests/${test._id}`}>
-            <Card.Title className="text-center card-title enlarge" as="div">
+            <Card.Title className="text-center card-title" as="div">
               <strong className="fw-bold">{test.name}</strong>
             </Card.Title>
           </Link>
-          <Card.Text className="enlarge move-right" as="div">
+          <Card.Text as="div">
             <Rating value={test.rating} text={`${test.numReviews}`}></Rating>
           </Card.Text>
-          <Card.Text as="h3" className="enlarge move-right">
-            {/* €{test.price} */}
-          </Card.Text>
+          <Card.Text as="h3">{/* €{test.price} */}</Card.Text>
         </Card.Body>
       </Card>
     </>

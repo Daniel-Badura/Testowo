@@ -25,6 +25,7 @@
   "items": "Items",
   "method":"Method",
   "name": "Name",
+  "next": "Next",
   "notDelivered": "Not Delivered",
   "notPaid": "Not Paid",
   "paid": "Paid",

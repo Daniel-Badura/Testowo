@@ -8,11 +8,13 @@ import { useTranslation } from "react-i18next";
 
 const Question = ({ questionId, questionText, answers, image }) => {
   const { t } = useTranslation();
+  const [selectedAnswersTest, setSelectedAnswersTest] = useState([]);
   const [selectedAnswers, setSelectedAnswers] = useState([]);
+
   const dispatch = useDispatch();
   const { id: testId } = useParams();
 
-  useEffect(() => {}, [selectedAnswers]);
+  useEffect(() => {}, []);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -26,6 +28,7 @@ const Question = ({ questionId, questionText, answers, image }) => {
         answeredQuestion,
       })
     );
+    setSelectedAnswers([]);
   };
 
   const updateSelectedAnswers = (checked, answer) => {
@@ -34,7 +37,14 @@ const Question = ({ questionId, questionText, answers, image }) => {
         ...prevSelectedAnswers,
         answer,
       ]);
+      setSelectedAnswersTest((prevSelectedAnswers) => [
+        ...prevSelectedAnswers,
+        answer,
+      ]);
     } else {
+      setSelectedAnswersTest((prevSelectedAnswers) =>
+        prevSelectedAnswers.filter((ans) => ans._id !== answer._id)
+      );
       setSelectedAnswers((prevSelectedAnswers) =>
         prevSelectedAnswers.filter((ans) => ans._id !== answer._id)
       );
@@ -42,7 +52,7 @@ const Question = ({ questionId, questionText, answers, image }) => {
   };
 
   const checkHandler = (id) => {
-    return selectedAnswers.some((ans) => ans._id === id);
+    return selectedAnswersTest.some((ans) => ans._id === id);
   };
 
   return (
@@ -58,7 +68,9 @@ const Question = ({ questionId, questionText, answers, image }) => {
             {answers
               ? answers.map((answer) => (
                   <Form.Check
-                    className="fw-normal fs-6"
+                    className={`fw-normal fs-6 ${
+                      checkHandler(answer._id) ? "text-warning" : ""
+                    }`}
                     key={answer._id}
                     label={answer.answerText}
                     type="checkbox"
@@ -70,6 +82,7 @@ const Question = ({ questionId, questionText, answers, image }) => {
                 ))
               : ""}
           </Form.Group>
+
           <Button
             type="submit"
             variant="warning"

@@ -21,6 +21,7 @@ import TestQuestionListScreen from "./screens/TestQuestionListScreen";
 import TestScreen from "./screens/TestScreen";
 import EditQuestionScreen from "./screens/EditQuestionScreen";
 import TestQuestionScreen from "./screens/TestQuestionScreen";
+import TestQuestionResultScreen from "./screens/TestQuestionResultScreen";
 function App() {
   const { t } = useTranslation();
 
@@ -59,6 +60,10 @@ function App() {
             />{" "}
             <Route path="/page/:pageNumber" element={<HomeScreen />} />
             <Route path="/tests/:id/test" element={<TestQuestionScreen />} />
+            <Route
+              path="/tests/:id/test/check"
+              element={<TestQuestionResultScreen />}
+            />
           </Routes>
         </Container>
         <Footer />

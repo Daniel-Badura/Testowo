@@ -23,6 +23,10 @@ import {
   TEST_TOP_RATED_REQUEST,
   TEST_TOP_RATED_SUCCESS,
   TEST_TOP_RATED_FAIL,
+  CHECK_ANSWERS_REQUEST,
+  CHECK_ANSWERS_SUCCESS,
+  CHECK_ANSWERS_FAIL,
+  CHECK_ANSWERS_RESET,
 } from "../constants/testConstants.js";
 
 export const testListReducer = (state = { tests: [] }, action) => {
@@ -137,6 +141,20 @@ export const testFeaturedReducer = (state = { tests: [] }, action) => {
       return { loading: false, success: true, tests: action.payload };
     case TEST_CREATE_FAIL:
       return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+export const checkAnswersReducer = (state = { summary: {} }, action) => {
+  switch (action.type) {
+    case CHECK_ANSWERS_REQUEST:
+      return { loading: true, ...state };
+    case CHECK_ANSWERS_SUCCESS:
+      return { loading: false, summary: action.payload };
+    case CHECK_ANSWERS_FAIL:
+      return { loading: false, error: action.payload };
+    case CHECK_ANSWERS_RESET:
+      return { summary: {} };
     default:
       return state;
   }

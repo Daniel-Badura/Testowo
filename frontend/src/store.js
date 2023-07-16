@@ -19,6 +19,7 @@ import {
   reviewCreateReducer,
   testTopRatedReducer,
   testFeaturedReducer,
+  checkAnswersReducer,
 } from "./reducers/testReducers";
 import {
   questionListReducer,
@@ -59,6 +60,7 @@ const reducer = combineReducers({
   answerDelete: answerDeleteReducer,
   testQuestionDetails: testQuestionDetailsReducer,
   submitAnswers: submitAnswersReducer,
+  checkedAnswers: checkAnswersReducer,
 });
 // localStorage.removeItem('userInfo'); web;
 
