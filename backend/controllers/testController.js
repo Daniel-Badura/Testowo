@@ -195,3 +195,102 @@ export const enrollTest = asyncHandler(async (req, res) => {
   }
   const user = await User.findById(req.user._id);
 });
+
+// @desc        Submit Test Answers
+// @route       Put /api/tests/:id/test/check
+// @access      Private
+
+export const submitTestAnswers = asyncHandler(async (req, res) => {
+  const test = await Test.findById(req.params.id);
+  const user = await User.findById(req.user._id);
+  if (user) {
+    if (test) {
+      if (
+        user.submittedAnswers.find((question) => question._id === req.body._id)
+      ) {
+        const submittedAnswers = user.submittedAnswers.filter((question) => {
+          return question._id != req.body._id;
+        });
+        user.submittedAnswers = submittedAnswers;
+        user.submittedAnswers.push(req.body);
+      } else {
+        user.submittedAnswers.push(req.body);
+      }
+      await user.save();
+      res.json(req.body);
+    } else {
+      res.status(404);
+      throw new Error("Test not found");
+    }
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
+// @desc        Check Test Answers
+// @route       Put /api/tests/:id/test/check
+// @access      Private
+
+export const checkTestAnswers = asyncHandler(async (req, res) => {
+  const test = await Test.findById(req.params.id);
+  const user = await User.findById(req.user._id);
+  if (user) {
+    if (test) {
+      function Question(correctAnswers, submittedAnswers, questionId) {
+        this.correctAnswers = correctAnswers;
+        this.submittedAnswers = submittedAnswers;
+        this.questionId = questionId;
+      }
+
+      const summary = [];
+      let score = 0;
+      test.questions.map((question) => {
+        let submittedAnswers = user.submittedAnswers.find(
+          (q) => q._id === question._id.toString()
+        );
+        const result = new Question(
+          question.correctAnswers,
+          submittedAnswers.selectedAnswers,
+          question._id
+        );
+        summary.push(result);
+      });
+      const countScore = (summary) => {
+        summary.map((question) => {
+          if (
+            question.correctAnswers.length === question.submittedAnswers.length
+          ) {
+            let correct = true;
+            question.correctAnswers.map((answer) => {
+              if (
+                question.submittedAnswers.map((ans) => {
+                  if (ans._id === answer._id.toString()) {
+                  } else {
+                    correct = false;
+                  }
+                })
+              ) {
+              }
+            });
+            if (correct) {
+              score++;
+            }
+          }
+        });
+      };
+      countScore(summary);
+      delete user.submittedAnswers;
+      delete user.activeTest;
+      await user.save();
+      // await user.save();
+      res.json({ summary: summary, score: score });
+    } else {
+      res.status(404);
+      throw new Error("Test not found");
+    }
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});

@@ -6,8 +6,8 @@ dotenv.config();
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGO_URI);
 mongoose.connection.on("error", () => {
-    throw new Error("unable to connect to database");
+  throw new Error("unable to connect to database");
 });
-test('2+2 equals 4', () => {
-    expect(2 + 2).toBe(4);
+test("2+2 equals 4", () => {
+  expect(2 + 2).toBe(4);
 });

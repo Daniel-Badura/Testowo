@@ -48,10 +48,9 @@ const userSchema = mongoose.Schema(
     },
     activeTest: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
       ref: "Test",
     },
-    submitedAnswers: [],
+    submittedAnswers: [],
     enrolledTests: [testSchema],
   },
   {

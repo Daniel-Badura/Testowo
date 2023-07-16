@@ -9,6 +9,8 @@ import {
   getTopRatedTests,
   getFeaturedTests,
   enrollTest,
+  checkTestAnswers,
+  submitTestAnswers,
 } from "../controllers/testController.js";
 import {
   getQuestion,
@@ -19,7 +21,6 @@ import {
   createAnswer,
   deleteAnswer,
   getTestQuestions,
-  submitTestAnswers,
 } from "../controllers/questionController.js";
 import { authenticator, isAdmin } from "../middleware/authMiddleware.js";
 const router = express.Router();
@@ -35,7 +36,8 @@ router
   .delete(authenticator, isAdmin, deleteTest)
   .put(authenticator, isAdmin, updateTest);
 router.route("/:id/test").get(authenticator, getTestQuestions);
-router.route("/:id/test/check").put(authenticator, submitTestAnswers);
+router.route("/:id/test/submit").put(authenticator, submitTestAnswers);
+router.route("/:id/test/check").put(authenticator, checkTestAnswers);
 
 router
   .route("/:id/questions")

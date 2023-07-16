@@ -120,9 +120,8 @@ export const createAnswer = asyncHandler(async (req, res) => {
   const testId = req.params.id;
   const questionId = req.params.qid;
   const test = await Test.findById(testId);
-  // console.log(test.questions.find((item) => item._id === questionId));
   const answer = new Answer({
-    answerText: "new answer",
+    answerText: "answer",
   });
   if (test) {
     // const test = await Test.updateOne(
@@ -204,30 +203,6 @@ export const getTestQuestions = asyncHandler(async (req, res) => {
         await user.save();
       }
       res.json(test);
-    } else {
-      res.status(404);
-      throw new Error("Test not found");
-    }
-  } else {
-    res.status(404);
-    throw new Error("User not found");
-  }
-});
-
-// @desc        Submit Test Answers
-// @route       GET /api/tests/:id/test/check
-// @access      Private
-
-export const submitTestAnswers = asyncHandler(async (req, res) => {
-  const test = await Test.findById(req.params.id);
-  const user = await User.findById(req.user._id);
-  console.log(req.body);
-  console.log(user);
-  if (user) {
-    if (test) {
-      user.submitedAnswers.push(req.body);
-      await user.save();
-      res.json(req.body);
     } else {
       res.status(404);
       throw new Error("Test not found");
