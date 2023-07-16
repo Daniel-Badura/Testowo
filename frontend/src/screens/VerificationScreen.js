@@ -51,7 +51,7 @@ const VerificationScreen = () => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Button type="submit" variant="primary" className="text-center">
+        <Button type="submit" variant="primary" className="text-center rounded">
           {t("verificationScreen.submit")}
         </Button>
       </Form>

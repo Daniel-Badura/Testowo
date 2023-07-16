@@ -105,7 +105,7 @@ const TestScreen = () => {
                 {userInfo ? (
                   <Button
                     onClick={enrollTestHandler}
-                    className="btn-success"
+                    className="btn-success rounded"
                     type="button"
                   >
                     {t("testScreen.enrollTest")}
@@ -165,7 +165,11 @@ const TestScreen = () => {
                         onChange={(e) => setComment(e.target.value)}
                       ></Form.Control>
                     </Form.Group>
-                    <Button className="my-3" type="submit" variant="success">
+                    <Button
+                      className="my-3 rounded"
+                      type="submit"
+                      variant="success"
+                    >
                       {t("submit")}
                     </Button>
                   </Form>

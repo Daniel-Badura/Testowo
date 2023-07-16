@@ -67,7 +67,7 @@ const TestListScreen = () => {
         </Col>
         <Col className="text-center">
           <Button
-            className="my-3"
+            className="my-3 rounded"
             variant="success"
             onClick={createTestHandler}
           >

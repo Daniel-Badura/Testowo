@@ -140,7 +140,11 @@ const ProfileScreen = () => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Button type="submit" variant="success" className="text-center my-2">
+        <Button
+          type="submit"
+          variant="success"
+          className="text-center my-2 rounded"
+        >
           {t("profileScreen.update")}
         </Button>
       </Form>

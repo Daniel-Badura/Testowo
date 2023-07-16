@@ -251,11 +251,15 @@ const EditQuestionScreen = () => {
             : ""}
           {uploading && <Loader />}
 
-          <Button type="submit" variant="primary" className="text-center my-2">
+          <Button
+            type="submit"
+            variant="primary"
+            className="text-center my-2 rounded"
+          >
             {t("update")}
           </Button>
           <Button
-            className="my-3"
+            className="my-3 rounded"
             variant="success"
             onClick={createAnswerHandler}
           >

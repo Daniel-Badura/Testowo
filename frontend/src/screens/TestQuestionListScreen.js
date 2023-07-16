@@ -85,7 +85,7 @@ const TestQuestionListScreen = () => {
         </Col>
         <Col className="text-center">
           <Button
-            className="my-3"
+            className="my-3 rounded"
             variant="success"
             onClick={createQuestionHandler}
           >
@@ -156,8 +156,8 @@ const TestQuestionListScreen = () => {
                         </Button>
 
                         <Button
-                          variant="outline-danger"
-                          className="btn-sm rounded"
+                          variant="outline-danger rounded"
+                          className="btn-sm"
                           onClick={() => {
                             deleteHandler(question._id, question.content);
                           }}

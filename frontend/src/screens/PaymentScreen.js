@@ -58,7 +58,7 @@ const PaymentScreen = () => {
         <Button
           type="submit"
           variant="primary"
-          className="text-center my-2 mx-auto d-block "
+          className="text-center my-2 mx-auto d-block rounded text-warning "
         >
           {t("continue")}
         </Button>

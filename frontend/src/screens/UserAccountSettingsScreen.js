@@ -169,13 +169,13 @@ const UserAccountSettingsScreen = () => {
             <Button
               type="submit"
               variant="success"
-              className="text-center my-2"
+              className="text-center my-2 rounded"
             >
               {t("userAccountSettingsScreen.update")}
             </Button>
           </Col>
           <Col className="text-right">
-            <Button type="submit" variant="danger" className="my-2">
+            <Button type="submit" variant="danger" className="my-2 rounded">
               {t("userAccountSettingsScreen.removeAccount")}
             </Button>
           </Col>
