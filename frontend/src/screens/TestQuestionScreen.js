@@ -6,6 +6,7 @@ import { getTestQuestionDetails } from "../actions/questionActions";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import { Button } from "react-bootstrap";
+import { checkAnswers } from "../actions/testActions";
 
 const TestQuestionScreen = () => {
   const dispatch = useDispatch();
@@ -41,14 +42,16 @@ const TestQuestionScreen = () => {
       setQuestionNumber(newQuestionNumber);
     }
   };
-  const finishTestHandler = () => {};
+  const finishTestHandler = () => {
+    dispatch(checkAnswers({ testId }));
+  };
   const { t } = useTranslation();
   return (
     <>
       {loading ? (
         <Loader />
       ) : (
-        <div className="text-center my-4 vh-100 ">
+        <div className="text-center my-4 ">
           {test ? (
             <div>
               <h1>{test.name}</h1>

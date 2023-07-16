@@ -24,7 +24,14 @@ import {
   ENROLL_TEST_REQUEST,
   ENROLL_TEST_SUCCESS,
   ENROLL_TEST_FAIL,
+  CHECK_ANSWERS_REQUEST,
+  CHECK_ANSWERS_SUCCESS,
+  CHECK_ANSWERS_FAIL,
 } from "../constants/testConstants.js";
+import {
+  SUBMIT_ANSWERS_REQUEST,
+  SUBMIT_ANSWERS_SUCCESS,
+} from "../constants/questionConstants.js";
 
 export const listTests =
   (keyword = "", pageNumber = "") =>
@@ -239,3 +246,42 @@ export const createTestReview = (id, review) => async (dispatch, getState) => {
     });
   }
 };
+
+export const checkAnswers =
+  ({ testId }) =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: CHECK_ANSWERS_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      const { data } = await axios.put(
+        `/api/tests/${testId}/test/check`,
+        {},
+        config
+      );
+
+      dispatch({
+        type: CHECK_ANSWERS_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: CHECK_ANSWERS_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };

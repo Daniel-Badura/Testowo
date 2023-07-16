@@ -299,7 +299,7 @@ export const submitAnswers =
         },
       };
       const { data } = await axios.put(
-        `/api/tests/${testId}/test/check`,
+        `/api/tests/${testId}/test/submit`,
         answeredQuestion,
         config
       );
