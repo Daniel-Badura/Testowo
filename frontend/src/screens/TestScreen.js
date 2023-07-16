@@ -102,13 +102,17 @@ const TestScreen = () => {
             </Col>
             <Col>
               <ListGroup.Item>
-                <Button
-                  onClick={enrollTestHandler}
-                  className="btn-success"
-                  type="button"
-                >
-                  {t("testScreen.enrollTest")}
-                </Button>
+                {userInfo ? (
+                  <Button
+                    onClick={enrollTestHandler}
+                    className="btn-success"
+                    type="button"
+                  >
+                    {t("testScreen.enrollTest")}
+                  </Button>
+                ) : (
+                  ""
+                )}
               </ListGroup.Item>
             </Col>
           </Row>
