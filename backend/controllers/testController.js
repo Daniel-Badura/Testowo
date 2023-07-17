@@ -151,6 +151,7 @@ export const createTestReview = asyncHandler(async (req, res) => {
     test.rating =
       test.reviews.reduce((acc, item) => item.rating + acc, 0) /
       test.reviews.length;
+    test.numReviews = test.reviews.length;
     await test.save();
     res.status(201).json({ message: "Review successfully added" });
   } else {
