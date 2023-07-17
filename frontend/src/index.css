@@ -22,7 +22,13 @@ code {
 
 .polish {
   background-image: url("/public/image/pl.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 .english {
   background-image: url("/public/image/us.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }

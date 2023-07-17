@@ -76,7 +76,10 @@ const TestQuestionListScreen = () => {
     <>
       <Row className="align-items-center">
         <Col>
-          <Link to="/admin/tests/list" className="btn btn-light my-3">
+          <Link
+            to="/admin/tests/list"
+            className="btn btn-light my-3 rounded btn-outline-warning"
+          >
             {t("editTestScreen.return")}
           </Link>
           <Col>
@@ -145,7 +148,7 @@ const TestQuestionListScreen = () => {
                       <td>
                         <Button
                           variant="outline-info"
-                          className="btn-sm rounded"
+                          className="btn-sm rounded w-50 h-100"
                           onClick={() => {
                             navigate(
                               `/admin/tests/${testId}/questions/${question._id}/edit`
@@ -156,8 +159,8 @@ const TestQuestionListScreen = () => {
                         </Button>
 
                         <Button
-                          variant="outline-danger rounded"
-                          className="btn-sm"
+                          variant="outline-danger"
+                          className="btn-sm rounded w-50 h-100"
                           onClick={() => {
                             deleteHandler(question._id, question.content);
                           }}

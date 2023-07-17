@@ -73,7 +73,7 @@ const TestScreen = () => {
   };
   return (
     <>
-      <Link className="btn btn-warning my-3 rounded" to="/">
+      <Link className="btn btn-outline-warning my-3 rounded" to="/">
         {t("return")}
       </Link>
       {loading ? (

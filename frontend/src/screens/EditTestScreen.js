@@ -180,14 +180,14 @@ const EditTestScreen = () => {
             <div className="d-flex align-items-center justify-content-between">
               <Button
                 type="submit"
-                variant="primary"
+                variant="success"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               >
                 {t("update")}
               </Button>
               <Link
                 to={`/admin/tests/${testId}/questions`}
-                className="btn btn-light my-3"
+                className="btn btn- my-3 btn-primary rounded"
               >
                 {t("editTestScreen.editQuestions")}
               </Link>

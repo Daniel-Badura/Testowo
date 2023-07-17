@@ -148,7 +148,7 @@ const EditQuestionScreen = () => {
     <>
       <Link
         to={`/admin/tests/${testId}/questions`}
-        className="btn btn-light my-3"
+        className="btn btn-light my-3 rounded btn-outline-warning"
       >
         {t("return")}
       </Link>
@@ -159,7 +159,7 @@ const EditQuestionScreen = () => {
             <Form.Label>{t("question")}</Form.Label>
             <Form.Control
               rows={5}
-              className="fs-6 fw-bold"
+              className="fs-6 fw-bold rounded"
               as="textarea"
               placeholder="Content"
               value={content}
@@ -172,7 +172,7 @@ const EditQuestionScreen = () => {
               {/* <Form.Label>{t("image")}</Form.Label> */}
               <div>
                 <Form.Control
-                  className="fs-5"
+                  className="fs-5 rounded"
                   type="string"
                   placeholder="Image url"
                   disabled={true}
@@ -180,7 +180,7 @@ const EditQuestionScreen = () => {
                   onChange={(e) => setImage(e.target.value)}
                 ></Form.Control>
                 <Form.Control
-                  className="fs-5"
+                  className="fs-5 rounded"
                   type="file"
                   label="Choose File"
                   onChange={uploadFileHandler}
@@ -190,7 +190,7 @@ const EditQuestionScreen = () => {
                 {image ? (
                   <img
                     style={{ maxWidth: "100px" }}
-                    className="img-fluid"
+                    className="img-fluid rounded"
                     src={image}
                     alt=""
                   />

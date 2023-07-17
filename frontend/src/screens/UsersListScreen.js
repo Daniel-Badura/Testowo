@@ -79,22 +79,24 @@ const UsersListScreen = () => {
                   </td>
                   <td>{user.createdAt.substring(0, 10)}</td>
                   <td>
-                    <LinkContainer to={`/admin/users/${user._id}/edit`}>
-                      <Button
-                        variant="outline-warning"
-                        className="btn-sm rounded"
-                      >
-                        <i className="fas fa-edit" />
-                      </Button>
-                    </LinkContainer>
+                    <Button
+                      variant="outline-info"
+                      className="btn-sm rounded w-50"
+                      onClick={() => {
+                        navigate(`/admin/users/${user._id}/edit`);
+                      }}
+                    >
+                      <i className="fas fa-edit big" />
+                    </Button>
+
                     <Button
                       variant="outline-danger"
-                      className="btn-sm rounded"
+                      className="btn-sm rounded w-50"
                       onClick={() => {
                         deleteHandler(user._id, user.email);
                       }}
                     >
-                      <i className="fas fa-trash " />
+                      <i className="fas fa-trash big" />
                     </Button>
                   </td>
                 </tr>

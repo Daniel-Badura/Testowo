@@ -71,7 +71,7 @@ const TestListScreen = () => {
             variant="success"
             onClick={createTestHandler}
           >
-            <i className="fas fa-plus"> </i> Create Test
+            <i className="fas fa-plus"> </i> {t("create")} {t("test")}
           </Button>
         </Col>
       </Row>
@@ -113,9 +113,8 @@ const TestListScreen = () => {
                       <td>{test.brand}</td>
                       <td>
                         <Button
-                          style={{ height: "100%" }}
                           variant="outline-info"
-                          className="btn-sm rounded"
+                          className="btn-sm rounded w-50"
                           onClick={() => {
                             navigate(`/admin/tests/${test._id}/edit`);
                           }}
@@ -125,7 +124,7 @@ const TestListScreen = () => {
 
                         <Button
                           variant="outline-danger"
-                          className="btn-sm rounded"
+                          className="btn-sm rounded w-50"
                           onClick={() => {
                             deleteHandler(test._id, test.name);
                           }}
