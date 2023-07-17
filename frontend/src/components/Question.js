@@ -57,10 +57,6 @@ const Question = ({ questionId, questionText, answers, image }) => {
 
   return (
     <div className="text-start ">
-      <div className="text-center">
-        <img src={image} alt=""></img>
-      </div>
-
       <FormContainer>
         <Form onSubmit={submitHandler}>
           <Form.Group className="pt-2">
@@ -92,6 +88,9 @@ const Question = ({ questionId, questionText, answers, image }) => {
           </Button>
         </Form>
       </FormContainer>
+      <div className="text-center">
+        <img src={image} className="img-fluid" alt=""></img>
+      </div>
     </div>
   );
 };

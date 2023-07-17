@@ -63,12 +63,7 @@ const TestQuestionScreen = () => {
                   "/" +
                   test.questions.length}
               </h4>
-              <Question
-                questionText={test.questions[questionIndex].content}
-                questionId={test.questions[questionIndex]._id}
-                answers={test.questions[questionIndex].answers}
-                image={test.questions[questionIndex].image}
-              />
+
               <div className="d-flex justify-content-between mx-5 px-5">
                 <Button
                   className="my-3 rounded"
@@ -93,6 +88,12 @@ const TestQuestionScreen = () => {
                   {t("next")}
                 </Button>
               </div>
+              <Question
+                questionText={test.questions[questionIndex].content}
+                questionId={test.questions[questionIndex]._id}
+                answers={test.questions[questionIndex].answers}
+                image={test.questions[questionIndex].image}
+              />
             </div>
           ) : (
             ""

@@ -250,9 +250,11 @@ export const checkTestAnswers = asyncHandler(async (req, res) => {
         let submittedAnswers = user.submittedAnswers.find(
           (q) => q._id === question._id.toString()
         );
+
+        console.log(submittedAnswers?.selectedAnswers);
         const result = new Question(
           question.correctAnswers,
-          submittedAnswers.selectedAnswers,
+          submittedAnswers?.selectedAnswers,
           question._id
         );
         summary.push(result);
@@ -260,7 +262,8 @@ export const checkTestAnswers = asyncHandler(async (req, res) => {
       const countScore = (summary) => {
         summary.map((question) => {
           if (
-            question.correctAnswers.length === question.submittedAnswers.length
+            question?.correctAnswers?.length ===
+            question?.submittedAnswers?.length
           ) {
             let correct = true;
             question.correctAnswers.map((answer) => {
@@ -284,7 +287,6 @@ export const checkTestAnswers = asyncHandler(async (req, res) => {
       delete user.submittedAnswers;
       delete user.activeTest;
       await user.save();
-      // await user.save();
       res.json({ summary: summary, score: score });
     } else {
       res.status(404);

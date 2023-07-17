@@ -15,7 +15,7 @@ const QuestionResult = ({ questionId, questionText, answers, image }) => {
   const { id: testId } = useParams();
 
   useEffect(() => {
-    if (!summary.summary) {
+    if (!summary?.summary) {
       dispatch(checkAnswers({ testId }));
     } else {
     }
@@ -24,7 +24,7 @@ const QuestionResult = ({ questionId, questionText, answers, image }) => {
   const submitHandler = (e) => {};
 
   const checkHandler = (id) => {
-    if (summary.summary) {
+    if (summary?.summary) {
       let question = summary.summary.find(
         (question) => question.questionId === questionId
       );
@@ -32,7 +32,7 @@ const QuestionResult = ({ questionId, questionText, answers, image }) => {
     } else return false;
   };
   const checkCorrectHandler = (id) => {
-    if (summary.summary) {
+    if (summary?.summary) {
       let question = summary.summary.find(
         (question) => question.questionId === questionId
       );

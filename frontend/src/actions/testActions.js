@@ -258,7 +258,7 @@ export const checkAnswers =
       const {
         userLogin: { userInfo },
       } = getState();
-
+      console.log(testId);
       const config = {
         headers: {
           "Content-Type": "application/json",
