@@ -28,7 +28,7 @@ const QuestionResult = ({ questionId, questionText, answers, image }) => {
       let question = summary.summary.find(
         (question) => question.questionId === questionId
       );
-      return question.submittedAnswers.some((answer) => answer._id === id);
+      return question.submittedAnswers?.some((answer) => answer._id === id);
     } else return false;
   };
   const checkCorrectHandler = (id) => {
@@ -42,12 +42,8 @@ const QuestionResult = ({ questionId, questionText, answers, image }) => {
 
   return (
     <div className="text-start ">
-      <div className="text-center">
-        <img src={image} alt=""></img>
-      </div>
-
       <FormContainer>
-        <Form onSubmit={submitHandler}>
+        <Form onSubmit={submitHandler} className="border w-100">
           <Form.Group className="pt-2">
             <Form.Label className="fw-bold">{questionText}</Form.Label>
             {answers
@@ -68,6 +64,9 @@ const QuestionResult = ({ questionId, questionText, answers, image }) => {
           </Form.Group>
         </Form>
       </FormContainer>
+      <div className="text-center">
+        <img src={image} className="w-75" alt=""></img>
+      </div>
     </div>
   );
 };

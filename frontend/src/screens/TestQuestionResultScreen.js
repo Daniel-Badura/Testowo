@@ -57,19 +57,7 @@ const TestQuestionResultScreen = () => {
           {test ? (
             <div>
               <h1>{test.name}</h1>
-              <h4>
-                {t("question") +
-                  " " +
-                  (questionIndex + 1) +
-                  "/" +
-                  test.questions.length}
-              </h4>
-              <QuestionResult
-                questionText={test.questions[questionIndex].content}
-                questionId={test.questions[questionIndex]._id}
-                answers={test.questions[questionIndex].answers}
-                image={test.questions[questionIndex].image}
-              />
+
               <div className="d-flex justify-content-between mx-5 px-5">
                 <Button
                   className="my-3 rounded"
@@ -86,6 +74,13 @@ const TestQuestionResultScreen = () => {
                 >
                   {t("finish")}
                 </Button> */}
+                <h4 className="my-auto">
+                  {t("question") +
+                    " " +
+                    (questionIndex + 1) +
+                    "/" +
+                    test.questions.length}
+                </h4>
                 <Button
                   className="my-3 rounded"
                   variant="success"
@@ -94,6 +89,12 @@ const TestQuestionResultScreen = () => {
                   {t("next")}
                 </Button>
               </div>
+              <QuestionResult
+                questionText={test.questions[questionIndex].content}
+                questionId={test.questions[questionIndex]._id}
+                answers={test.questions[questionIndex].answers}
+                image={test.questions[questionIndex].image}
+              />
             </div>
           ) : (
             ""

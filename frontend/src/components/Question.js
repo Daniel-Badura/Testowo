@@ -52,7 +52,7 @@ const Question = ({ questionId, questionText, answers, image }) => {
   };
 
   const checkHandler = (id) => {
-    return selectedAnswersTest.some((ans) => ans._id === id);
+    return selectedAnswersTest?.some((ans) => ans._id === id);
   };
 
   return (

@@ -111,7 +111,9 @@ const TestScreen = () => {
                     {t("testScreen.enrollTest")}
                   </Button>
                 ) : (
-                  ""
+                  <Link to="/login" className="btn btn-success rounded">
+                    {t("login")}
+                  </Link>
                 )}
               </ListGroup.Item>
             </Col>

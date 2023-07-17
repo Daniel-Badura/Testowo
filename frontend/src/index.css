@@ -19,3 +19,10 @@ code {
 .p-2 {
   transition-duration: 0.5s;
 }
+
+.polish {
+  background-image: url("/public/image/pl.svg");
+}
+.english {
+  background-image: url("/public/image/us.svg");
+}
