@@ -154,9 +154,6 @@ const EditQuestionScreen = () => {
         (correctAnswer) => correctAnswer._id !== answer._id
       );
       setCorrectAnswers(updatedCorrectAnswers);
-      console.log("removed");
-      console.log(correctAnswers);
-      console.log(updatedCorrectAnswers);
     }
   };
 

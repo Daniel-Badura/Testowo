@@ -91,17 +91,25 @@ export const updateQuestion = asyncHandler(async (req, res) => {
   const { content, image, answers, correctAnswers } = req.body;
   const testId = req.params.id;
   const qid = req.params.qid;
+  console.log(qid);
   const test = await Test.findById(testId);
-  const updateQuestion = await Question.findById(req.params.qid);
+  const updateQuestion = test.questions.find(
+    (question) => question._id.toString() === qid
+  );
+  console.log(updateQuestion);
   if (updateQuestion) {
+    console.log("got here 1");
     updateQuestion.content = content;
     updateQuestion.image = image;
     updateQuestion.answers = answers;
     updateQuestion.correctAnswers = correctAnswers;
     const updatedQuestion = await updateQuestion.save();
+    console.log("got here 2");
     const index = test.questions.findIndex((object) => {
       return object.id === qid;
     });
+
+    console.log("got here 3");
     test.questions.splice(index, 1);
     test.questions.push(updateQuestion);
     await test.save();
@@ -149,6 +157,7 @@ export const deleteAnswer = asyncHandler(async (req, res) => {
   const qid = req.params.qid;
   const answerId = req.params.aid;
   const test = await Test.findById(testId);
+
   const updateQuestion = await Question.findById(req.params.qid);
   if (updateQuestion) {
     const question = test.questions.find((q) => {
@@ -200,6 +209,7 @@ export const getTestQuestions = asyncHandler(async (req, res) => {
         const questions = shuffleArray(test.questions);
         test.questions = questions;
         user.activeTest = test._id;
+
         await user.save();
       }
       res.json(test);
