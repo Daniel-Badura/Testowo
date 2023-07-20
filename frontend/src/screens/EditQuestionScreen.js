@@ -41,14 +41,19 @@ const EditQuestionScreen = () => {
   } = questionUpdate;
 
   const answerCreate = useSelector((state) => state.answerCreate);
-  const { loading: loadingAnswer, success: successAnswerCreate } = answerCreate;
+  const {
+    loading: loadingAnswer,
+    success: successAnswerCreate,
+    createdAnswer,
+  } = answerCreate;
 
   useEffect(() => {
     if (successUpdate) {
       dispatch({ type: QUESTION_UPDATE_RESET });
       navigate(`/admin/tests/${testId}/questions/${questionId}/edit`);
     } else if (successAnswerCreate) {
-      dispatch({ type: ANSWER_CREATE_RESET });
+      // setAnswers(...answers, createdAnswer);
+      // dispatch({ type: ANSWER_CREATE_RESET });
       dispatch(getQuestionDetails({ testId, questionId }));
     } else {
       if (!question || question._id !== questionId) {
@@ -73,6 +78,8 @@ const EditQuestionScreen = () => {
     question,
     successAnswerCreate,
     answers,
+    correctAnswers,
+    createdAnswer,
   ]);
 
   const submitHandler = (e) => {
@@ -132,15 +139,24 @@ const EditQuestionScreen = () => {
   };
 
   const handleCorrectAnswers = (answer, checked) => {
+    const answersCorrect = correctAnswers.filter((answer) =>
+      answers.find((ans) => ans._id === answer._id)
+    );
     if (checked) {
-      // Add the answer to correctAnswers
-      setCorrectAnswers([...correctAnswers, answer]);
+      const updatedCorrectAnswers = answersCorrect.filter(
+        (correctAnswer) => correctAnswer._id !== answer._id
+      );
+
+      setCorrectAnswers([...updatedCorrectAnswers, answer]);
     } else {
       // Remove the answer from correctAnswers
-      const updatedCorrectAnswers = correctAnswers.filter(
+      const updatedCorrectAnswers = answersCorrect.filter(
         (correctAnswer) => correctAnswer._id !== answer._id
       );
       setCorrectAnswers(updatedCorrectAnswers);
+      console.log("removed");
+      console.log(correctAnswers);
+      console.log(updatedCorrectAnswers);
     }
   };
 
@@ -235,7 +251,7 @@ const EditQuestionScreen = () => {
                       </Button>
                       <Form.Check
                         type="checkbox"
-                        label="Correct"
+                        label={t("correct")}
                         checked={correctAnswers.some(
                           (correctAnswer) => correctAnswer._id === answer._id
                         )}

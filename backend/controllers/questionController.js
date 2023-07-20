@@ -121,7 +121,7 @@ export const createAnswer = asyncHandler(async (req, res) => {
   const questionId = req.params.qid;
   const test = await Test.findById(testId);
   const answer = new Answer({
-    answerText: "answer",
+    answerText: " ",
   });
   if (test) {
     // const test = await Test.updateOne(
@@ -132,8 +132,8 @@ export const createAnswer = asyncHandler(async (req, res) => {
       .find((question) => question._id.toString() === questionId)
       .answers.push(answer);
     await test.save();
-
-    res.status(201).json(question);
+    console.log(answer._id);
+    res.status(201).json(answer);
   } else {
     res.status(404);
     throw new Error("Test not found");

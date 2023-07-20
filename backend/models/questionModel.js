@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 export const answerSchema = new mongoose.Schema({
   answerText: {
     type: String,
-    required: true,
+    // required: true,
   },
 });
 

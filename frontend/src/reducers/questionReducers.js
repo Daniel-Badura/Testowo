@@ -122,7 +122,7 @@ export const answerCreateReducer = (state = {}, action) => {
     case ANSWER_CREATE_REQUEST:
       return { loading: true, ...state };
     case ANSWER_CREATE_SUCCESS:
-      return { loading: false, question: action.payload, success: true };
+      return { loading: false, createdAnswer: action.payload, success: true };
     case ANSWER_CREATE_FAIL:
       return { loading: false, error: action.payload };
     case ANSWER_CREATE_RESET:
