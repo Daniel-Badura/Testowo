@@ -53,6 +53,7 @@ const EditQuestionScreen = () => {
       navigate(`/admin/tests/${testId}/questions/${questionId}/edit`);
     } else if (successAnswerCreate) {
       // setAnswers(...answers, createdAnswer);
+      // dispatch({ type: QUESTION_UPDATE_RESET });
       // dispatch({ type: ANSWER_CREATE_RESET });
       dispatch(getQuestionDetails({ testId, questionId }));
     } else {
@@ -78,7 +79,7 @@ const EditQuestionScreen = () => {
     question,
     successAnswerCreate,
     answers,
-    correctAnswers,
+
     createdAnswer,
   ]);
 

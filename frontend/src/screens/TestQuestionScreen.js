@@ -53,7 +53,7 @@ const TestQuestionScreen = () => {
         <Loader />
       ) : (
         <div className="text-center my-4 ">
-          {test ? (
+          {test.questions.length > 0 ? (
             <div>
               <h1>{test.name}</h1>
               <h4>
@@ -88,6 +88,7 @@ const TestQuestionScreen = () => {
                   {t("next")}
                 </Button>
               </div>
+
               <Question
                 questionText={test.questions[questionIndex].content}
                 questionId={test.questions[questionIndex]._id}
