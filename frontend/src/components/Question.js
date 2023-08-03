@@ -10,6 +10,7 @@ const Question = ({ questionId, questionText, answers, image }) => {
   const { t } = useTranslation();
   const [selectedAnswersTest, setSelectedAnswersTest] = useState([]);
   const [selectedAnswers, setSelectedAnswers] = useState([]);
+  const [answered, setAnswered] = useState(false);
 
   const dispatch = useDispatch();
   const { id: testId } = useParams();
@@ -29,6 +30,7 @@ const Question = ({ questionId, questionText, answers, image }) => {
       })
     );
     setSelectedAnswers([]);
+    setAnswered(true);
   };
 
   const updateSelectedAnswers = (checked, answer) => {
@@ -49,6 +51,7 @@ const Question = ({ questionId, questionText, answers, image }) => {
         prevSelectedAnswers.filter((ans) => ans._id !== answer._id)
       );
     }
+    setAnswered(false);
   };
 
   const checkHandler = (id) => {
@@ -78,14 +81,17 @@ const Question = ({ questionId, questionText, answers, image }) => {
                 ))
               : ""}
           </Form.Group>
-
-          <Button
-            type="submit"
-            variant="warning"
-            className="text-center my-2 rounded"
-          >
-            {t("save")}
-          </Button>
+          {!answered ? (
+            <Button
+              type="submit"
+              variant="warning"
+              className="text-center my-2 rounded"
+            >
+              {t("save")}
+            </Button>
+          ) : (
+            ""
+          )}
         </Form>
       </FormContainer>
       <div className="text-center">

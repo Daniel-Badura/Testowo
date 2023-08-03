@@ -1,18 +1,8 @@
 import React from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import i18n from "../i18n";
-import { useTranslation } from "react-i18next";
 
 const Footer = () => {
-  const { t } = useTranslation();
-  const locales = {
-    en: {
-      title: "English",
-    },
-    pl: {
-      title: "Polski",
-    },
-  };
   return (
     <>
       <Row className="text-center">

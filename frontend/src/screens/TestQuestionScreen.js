@@ -107,7 +107,6 @@ const TestQuestionScreen = () => {
                 answers={shuffleArray(test.questions[questionIndex].answers)}
                 image={test.questions[questionIndex].image}
               />
-              @Ł
             </div>
           ) : (
             ""
