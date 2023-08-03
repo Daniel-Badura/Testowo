@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import Test from "../models/testModel.js";
 import User from "../models/userModel.js";
+import DeletedObject from "../models/deletedObjects.js";
 
 // @desc        Fetch all  tests
 // @route       GET /api/tests
@@ -79,8 +80,12 @@ export const getTest = asyncHandler(async (req, res) => {
 // @route       DELETE /api/tests/:id
 // @access      Private
 export const deleteTest = asyncHandler(async (req, res) => {
-  const test = await Test.findByIdAndRemove(req.params.id);
-
+  const test = await Test.findById(req.params.id);
+  const deletedTest = new DeletedObject({
+    deleted: test,
+  });
+  await deletedTest.save();
+  // const test = await Test.findByIdAndRemove(req.params.id);
   if (test) {
     res.json("Test removed");
   } else {

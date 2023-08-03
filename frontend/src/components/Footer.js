@@ -16,7 +16,7 @@ const Footer = () => {
   return (
     <>
       <Row className="text-center">
-        <Col className="text-right py-3">Copyright &copy; Testowo</Col>
+        <Col className="py-3">Copyright &copy; Testowo</Col>
       </Row>
       <Row className="text-center">
         <Col>

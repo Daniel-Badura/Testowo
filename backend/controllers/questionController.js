@@ -206,8 +206,8 @@ export const getTestQuestions = asyncHandler(async (req, res) => {
           return array;
         }
         // ------------------------------------
-        const questions = shuffleArray(test.questions);
-        test.questions = questions;
+
+        test.questions = shuffleArray(test.questions);
         user.activeTest = test._id;
 
         await user.save();

@@ -20,6 +20,19 @@ const TestQuestionScreen = () => {
   const { loading, test } = testQuestionDetails;
   const { id: testId } = useParams();
 
+  function shuffleArray(array) {
+    var m = array.length,
+      t,
+      i;
+    while (m) {
+      i = Math.floor(Math.random() * m--);
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+    }
+    return array;
+  }
+
   useEffect(() => {
     dispatch(getTestQuestionDetails({ testId }));
   }, [testId, dispatch, navigate]);
@@ -36,7 +49,7 @@ const TestQuestionScreen = () => {
     }
   };
   const nextQuestionHandler = () => {
-    if (questionNumber < test.questions.length - 1) {
+    if (questionNumber < test?.questions.length - 1) {
       const newQuestionNumber = questionNumber + 1;
       navigate(`/tests/${testId}/test?question=${newQuestionNumber}`);
       setQuestionNumber(newQuestionNumber);
@@ -47,13 +60,14 @@ const TestQuestionScreen = () => {
     navigate(`/tests/${testId}/test/check`);
   };
   const { t } = useTranslation();
+
   return (
     <>
       {loading ? (
         <Loader />
       ) : (
         <div className="text-center my-4 ">
-          {test.questions.length > 0 ? (
+          {test?.questions.length > 0 ? (
             <div>
               <h1>{test.name}</h1>
               <h4>
@@ -63,7 +77,6 @@ const TestQuestionScreen = () => {
                   "/" +
                   test.questions.length}
               </h4>
-
               <div className="d-flex justify-content-between mx-5 px-5">
                 <Button
                   className="my-3 rounded"
@@ -88,13 +101,13 @@ const TestQuestionScreen = () => {
                   {t("next")}
                 </Button>
               </div>
-
               <Question
                 questionText={test.questions[questionIndex].content}
                 questionId={test.questions[questionIndex]._id}
-                answers={test.questions[questionIndex].answers}
+                answers={shuffleArray(test.questions[questionIndex].answers)}
                 image={test.questions[questionIndex].image}
               />
+              @Ł
             </div>
           ) : (
             ""
