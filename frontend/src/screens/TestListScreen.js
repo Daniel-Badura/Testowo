@@ -92,6 +92,7 @@ const TestListScreen = () => {
                 {/* <th>ID</th> */}
                 <th>{t("name")}</th>
                 <th>{t("price")}</th>
+                <th>{t("questions")}</th>
                 <th>{t("category")}</th>
                 <th>{t("brand")}</th>
                 <th>
@@ -109,6 +110,7 @@ const TestListScreen = () => {
                         <a href={`/tests/${test._id}`}>{test.name} </a>
                       </td>
                       <td>{test.price}€</td>
+                      <td>{test.questions.length}</td>
                       <td>{test.category}</td>
                       <td>{test.brand}</td>
                       <td>
