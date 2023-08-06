@@ -14,12 +14,12 @@ const QuestionResult = ({ questionId, questionText, answers, image }) => {
   const dispatch = useDispatch();
   const { id: testId } = useParams();
 
-  useEffect(() => {
-    if (!summary) {
-      dispatch(checkAnswers({ testId }));
-    } else {
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!summary) {
+  //     dispatch(checkAnswers({ testId }));
+  //   } else {
+  //   }
+  // }, []);
 
   const submitHandler = (e) => {};
 
