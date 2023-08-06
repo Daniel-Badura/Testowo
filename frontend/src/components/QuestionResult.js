@@ -15,7 +15,7 @@ const QuestionResult = ({ questionId, questionText, answers, image }) => {
   const { id: testId } = useParams();
 
   useEffect(() => {
-    if (!summary?.summary) {
+    if (!summary) {
       dispatch(checkAnswers({ testId }));
     } else {
     }
