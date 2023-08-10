@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { Form } from "react-bootstrap";
 import FormContainer from "./FormContainer";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { submitAnswers } from "../actions/questionActions";
+// import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+// import { submitAnswers } from "../actions/questionActions";
 import { useTranslation } from "react-i18next";
-import { checkAnswers } from "../actions/testActions";
+// import { checkAnswers } from "../actions/testActions";
 
 const QuestionResult = ({ questionId, questionText, answers, image }) => {
   const { t } = useTranslation();
   const checkedAnswers = useSelector((state) => state.checkedAnswers);
   const { summary } = checkedAnswers;
-  const dispatch = useDispatch();
-  const { id: testId } = useParams();
+  // const dispatch = useDispatch();
+  // const { id: testId } = useParams();
 
-  // useEffect(() => {
-  //   if (!summary) {
-  //     dispatch(checkAnswers({ testId }));
-  //   } else {
-  //   }
-  // }, []);
+  useEffect(() => {
+    // if (!summary) {
+    //   dispatch(checkAnswers({ testId }));
+    // } else {
+    // }
+  }, []);
 
   const submitHandler = (e) => {};
 

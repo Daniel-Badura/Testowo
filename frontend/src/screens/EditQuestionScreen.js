@@ -228,7 +228,7 @@ const EditQuestionScreen = () => {
                         placeholder={`answer_${index}`}
                         value={answers[index]?.answerText || ""}
                         onChange={(e) =>
-                          handleAnswerChange(index, e.target.value)
+                          handleAnswerChange(index, e.target.value.trim())
                         }
                       ></Form.Control>
                       <div className="d-flex align-items-center justify-content-between">

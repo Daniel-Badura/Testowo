@@ -209,7 +209,7 @@ export const getTestQuestions = asyncHandler(async (req, res) => {
 
         test.questions = shuffleArray(test.questions);
         user.activeTest = test._id;
-
+        console.log("DUUDUUDU");
         await user.save();
       }
       res.json(test);
