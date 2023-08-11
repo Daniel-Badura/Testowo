@@ -67,9 +67,21 @@ export const getTests = asyncHandler(async (req, res) => {
 // @access      Public
 export const getTest = asyncHandler(async (req, res) => {
   const test = await Test.findById(req.params.id);
+  const testDetails = {
+    name: test.name,
+    image: test.image,
+    user: test.user,
+    category: test.category,
+    brand: test.brand,
+    description: test.description,
+    rating: test.rating,
+    numReviews: test.numReviews,
+    featured: test.featured,
+    reviews: test.reviews,
+  };
 
   if (test) {
-    res.json(test);
+    res.json(testDetails);
   } else {
     res.status(404);
     throw new Error("Test not found");
