@@ -68,6 +68,7 @@ export const getTests = asyncHandler(async (req, res) => {
 export const getTest = asyncHandler(async (req, res) => {
   const test = await Test.findById(req.params.id);
   const testDetails = {
+    _id: test._id,
     name: test.name,
     image: test.image,
     user: test.user,

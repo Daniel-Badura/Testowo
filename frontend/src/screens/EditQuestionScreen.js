@@ -92,9 +92,9 @@ const EditQuestionScreen = () => {
         question: { content, image, answers, correctAnswers },
       })
     );
-    dispatch({ type: ANSWER_CREATE_RESET });
-    dispatch({ type: QUESTION_UPDATE_RESET });
-    dispatch({ type: QUESTION_DETAILS_RESET });
+    // dispatch({ type: ANSWER_CREATE_RESET });
+    // dispatch({ type: QUESTION_UPDATE_RESET });
+    // dispatch({ type: QUESTION_DETAILS_RESET });
   };
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0];

@@ -191,26 +191,26 @@ export const getTestQuestions = asyncHandler(async (req, res) => {
   // const questionNumber = req.query.question || 0;
   if (user) {
     if (test) {
-      if (user.activeTest == [] || !user.activeTest) {
-        // -----------Shuffle-----------------
-        function shuffleArray(array) {
-          var m = array.length,
-            t,
-            i;
-          while (m) {
-            i = Math.floor(Math.random() * m--);
-            t = array[m];
-            array[m] = array[i];
-            array[i] = t;
-          }
-          return array;
+      // if (user.activeTest == [] || !user.activeTest) {
+      // -----------Shuffle-----------------
+      function shuffleArray(array) {
+        var m = array.length,
+          t,
+          i;
+        while (m) {
+          i = Math.floor(Math.random() * m--);
+          t = array[m];
+          array[m] = array[i];
+          array[i] = t;
         }
-        // ------------------------------------
-
-        test.questions = shuffleArray(test.questions);
-        user.activeTest = test._id;
-        await user.save();
+        return array;
       }
+      // ------------------------------------
+
+      // test.questions = shuffleArray(test.questions);
+      user.activeTest = test._id;
+      await user.save();
+      // }
       res.json(test);
     } else {
       res.status(404);
