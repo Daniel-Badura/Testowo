@@ -79,6 +79,7 @@ export const getTest = asyncHandler(async (req, res) => {
     numReviews: test.numReviews,
     featured: test.featured,
     reviews: test.reviews,
+    questions: test.questions.length,
   };
 
   if (test) {

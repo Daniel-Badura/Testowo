@@ -98,6 +98,11 @@ const TestScreen = () => {
                 <ListGroup.Item>
                   {t("testScreen.description")}: {test.description}
                 </ListGroup.Item>
+                <ListGroup.Item>
+                  <h4>
+                    {t("questions")}: <strong>{test.questions}</strong>
+                  </h4>
+                </ListGroup.Item>
               </ListGroup>
             </Col>
             <Col>
