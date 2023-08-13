@@ -139,7 +139,7 @@ const TestListScreen = () => {
                 : ""}
             </tbody>
           </Table>
-          <Paginate pages={pages} page={page} isAdmin={true} />
+          <Paginate pages={pages} page={page} isAdmin={true} source={"tests"} />
         </>
       )}
     </>

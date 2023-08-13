@@ -41,7 +41,7 @@ const EditQuestionScreen = () => {
   } = questionUpdate;
 
   const answerCreate = useSelector((state) => state.answerCreate);
-  const {
+  let {
     loading: loadingAnswer,
     success: successAnswerCreate,
     createdAnswer,
@@ -54,7 +54,7 @@ const EditQuestionScreen = () => {
     } else if (successAnswerCreate) {
       // setAnswers(...answers, createdAnswer);
       // dispatch({ type: QUESTION_UPDATE_RESET });
-      // dispatch({ type: ANSWER_CREATE_RESET });
+      dispatch({ type: ANSWER_CREATE_RESET });
       dispatch(getQuestionDetails({ testId, questionId }));
     } else {
       if (!question || question._id !== questionId) {
@@ -133,7 +133,8 @@ const EditQuestionScreen = () => {
       dispatch({ type: QUESTION_DETAILS_RESET });
     }
   };
-  const handleAnswerChange = (index, value) => {
+  const handleAnswerChange = (index, value, answer) => {
+    answer.answerText = value;
     const updatedAnswers = [...answers];
     updatedAnswers[index] = { ...updatedAnswers[index], answerText: value };
     setAnswers(updatedAnswers);
@@ -228,7 +229,7 @@ const EditQuestionScreen = () => {
                         placeholder={`answer_${index}`}
                         value={answers[index]?.answerText || ""}
                         onChange={(e) =>
-                          handleAnswerChange(index, e.target.value.trim())
+                          handleAnswerChange(index, e.target.value, answer)
                         }
                       ></Form.Control>
                       <div className="d-flex align-items-center justify-content-between">

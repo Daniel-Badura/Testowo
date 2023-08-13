@@ -45,6 +45,10 @@ function App() {
             <Route path="/tests/:id" element={<TestScreen />} />
             <Route path="/admin/tests/list" element={<TestListScreen />} />
             <Route
+              path="/admin/tests/list/:pageNumber"
+              element={<TestListScreen />}
+            />
+            <Route
               path="/admin/tests/:id/questions"
               element={<TestQuestionListScreen />}
             />
