@@ -12,7 +12,7 @@ const Meta = ({ title, description, keyword }) => {
 };
 
 Meta.defaultProps = {
-  title: "Testowo",
+  title: "Testwowo",
   description: "Test your skills",
   keywords: "test exams questions answers",
 };
