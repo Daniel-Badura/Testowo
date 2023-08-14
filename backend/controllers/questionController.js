@@ -88,7 +88,7 @@ export const deleteQuestion = asyncHandler(async (req, res) => {
 // @route       PUT /api/tests/:id/questions/:qid
 // @access      Private/Admin
 export const updateQuestion = asyncHandler(async (req, res) => {
-  const { content, image, answers, correctAnswers } = req.body;
+  const { content, image, answers, correctAnswers, explanation } = req.body;
   const testId = req.params.id;
   const qid = req.params.qid;
   console.log(qid);
@@ -98,18 +98,16 @@ export const updateQuestion = asyncHandler(async (req, res) => {
   );
   console.log(updateQuestion);
   if (updateQuestion) {
-    console.log("got here 1");
     updateQuestion.content = content;
     updateQuestion.image = image;
     updateQuestion.answers = answers;
     updateQuestion.correctAnswers = correctAnswers;
+    updateQuestion.explanation = explanation;
     const updatedQuestion = await updateQuestion.save();
-    console.log("got here 2");
     const index = test.questions.findIndex((object) => {
       return object.id === qid;
     });
 
-    console.log("got here 3");
     test.questions.splice(index, 1);
     test.questions.push(updateQuestion);
     await test.save();

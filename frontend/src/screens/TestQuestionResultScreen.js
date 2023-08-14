@@ -94,6 +94,7 @@ const TestQuestionResultScreen = () => {
                 questionId={test.questions[questionIndex]._id}
                 answers={test.questions[questionIndex].answers}
                 image={test.questions[questionIndex].image}
+                explanation={test.questions[questionIndex].explanation}
               />
             </div>
           ) : (

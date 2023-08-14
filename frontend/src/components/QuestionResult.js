@@ -7,7 +7,13 @@ import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 // import { checkAnswers } from "../actions/testActions";
 
-const QuestionResult = ({ questionId, questionText, answers, image }) => {
+const QuestionResult = ({
+  questionId,
+  questionText,
+  answers,
+  image,
+  explanation,
+}) => {
   const { t } = useTranslation();
   const checkedAnswers = useSelector((state) => state.checkedAnswers);
   const { summary } = checkedAnswers;
@@ -67,6 +73,7 @@ const QuestionResult = ({ questionId, questionText, answers, image }) => {
       <div className="text-center">
         <img src={image} className="w-75" alt=""></img>
       </div>
+      {explanation ? <div> {explanation} </div> : " "}
     </div>
   );
 };

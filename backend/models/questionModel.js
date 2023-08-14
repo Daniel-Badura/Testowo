@@ -23,6 +23,7 @@ export const questionSchema = new mongoose.Schema({
   },
   answers: [answerSchema],
   correctAnswers: [answerSchema],
+  explanation: { type: String, required: false },
 });
 export const Question = mongoose.model("Question", questionSchema);
 export const Answer = mongoose.model("Answer", answerSchema);
