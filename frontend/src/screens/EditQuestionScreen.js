@@ -23,16 +23,14 @@ const EditQuestionScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id: testId, qid: questionId } = useParams();
-
+  const [content, setContent] = useState("");
+  const [explanation, setExplanation] = useState("");
   const [answers, setAnswers] = useState([]);
   const [image, setImage] = useState("");
   const [correctAnswers, setCorrectAnswers] = useState([]);
-
   const [uploading, setUploading] = useState("");
   const questionDetails = useSelector((state) => state.questionDetails);
   const { loading, error, question } = questionDetails;
-  const [content, setContent] = useState(question.content);
-  const [explanation, setExplanation] = useState(question.explanation);
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   const questionUpdate = useSelector((state) => state.questionUpdate);
@@ -60,11 +58,11 @@ const EditQuestionScreen = () => {
       dispatch(getQuestionDetails({ testId, questionId }));
     } else {
       if (!question || question._id !== questionId) {
+        // if question does not exist or if ids dont match
         dispatch(getQuestionDetails({ testId, questionId }));
       } else {
         if (!answers.length) {
           // Check if answers state is empty
-
           setCorrectAnswers(question.correctAnswers);
           setAnswers(question.answers);
         }
@@ -229,7 +227,7 @@ const EditQuestionScreen = () => {
                         className="fs-5 d-flex my-1"
                         as="textarea"
                         rows={4}
-                        placeholder={`answer_${index}`}
+                        placeholder={`${t("answer")} ${index}`}
                         value={answers[index]?.answerText || ""}
                         onChange={(e) =>
                           handleAnswerChange(index, e.target.value, answer)
