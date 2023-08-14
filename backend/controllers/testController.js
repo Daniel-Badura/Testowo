@@ -284,7 +284,7 @@ export const checkTestAnswers = asyncHandler(async (req, res) => {
             question?.submittedAnswers?.length
           ) {
             let correct = true;
-            question.correctAnswers.map((answer) => {
+            question?.correctAnswers.map((answer) => {
               if (
                 question.submittedAnswers.find(
                   (ans) => ans._id.toString() === answer._id.toString()

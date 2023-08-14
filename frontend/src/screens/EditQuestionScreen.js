@@ -54,7 +54,7 @@ const EditQuestionScreen = () => {
     } else if (successAnswerCreate) {
       // setAnswers(...answers, createdAnswer);
       // dispatch({ type: QUESTION_UPDATE_RESET });
-      dispatch({ type: ANSWER_CREATE_RESET });
+      // dispatch({ type: ANSWER_CREATE_RESET });
       dispatch(getQuestionDetails({ testId, questionId }));
     } else {
       if (!question || question._id !== questionId) {

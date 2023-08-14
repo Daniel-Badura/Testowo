@@ -36,7 +36,7 @@ const QuestionResult = ({ questionId, questionText, answers, image }) => {
       let question = summary.summary.find(
         (question) => question.questionId === questionId
       );
-      return question.correctAnswers.some((answer) => answer._id === id);
+      return question?.correctAnswers.some((answer) => answer._id === id);
     } else return false;
   };
 
