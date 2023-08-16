@@ -265,19 +265,27 @@ const EditQuestionScreen = () => {
                 </Row>
               ))
             : ""}
-          <Row>
-            <Form.Group controlId={`explanation`} className=" fs-5">
-              <Form.Label>{t("explanation")}</Form.Label>
-              <Form.Control
-                className="fs-5 d-flex my-1"
-                as="textarea"
-                rows={4}
-                placeholder={`${t("explanation")}`}
-                value={explanation}
-                onChange={(e) => setExplanation(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-          </Row>
+          {explanation ? (
+            <Row>
+              <Form.Group controlId={`explanation`} className=" fs-5">
+                <Form.Label>{t("explanation")}</Form.Label>
+                <Form.Control
+                  className="fs-5 d-flex my-1"
+                  as="textarea"
+                  rows={4}
+                  placeholder={`${t("explanation")}`}
+                  value={explanation}
+                  onChange={(e) => setExplanation(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
+            </Row>
+          ) : (
+            <Form.Check
+              type="checkbox"
+              label={t("explanation")}
+              onChange={(e) => setExplanation(" ")}
+            />
+          )}
           {uploading && <Loader />}
 
           <Button
