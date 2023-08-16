@@ -112,6 +112,7 @@ const TestScreen = () => {
                     onClick={enrollTestHandler}
                     className="btn-success rounded"
                     type="button"
+                    disabled={test.questions < 1 ? true : false}
                   >
                     {t("testScreen.enrollTest")}
                   </Button>
