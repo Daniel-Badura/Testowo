@@ -25,7 +25,7 @@ Testowo is a web application built using the MERN (MongoDB, Express.js, React.js
 1. Clone the repository:
 
 ```
-git clone https://github.com/yourusername/testowo.git
+git clone https://github.com/Daniel-Badura/Testowo.git
 ```
 
 2. Install server dependencies:
