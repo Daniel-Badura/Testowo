@@ -52,8 +52,9 @@ const LoginScreen = () => {
         <Form.Group controlId="password" className="py-2">
           <Form.Label>{t("password")}</Form.Label>
           <Form.Control
+            className="rounded"
             type="password"
-            placeholder="Enter password"
+            placeholder={t("enterPassword")}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
