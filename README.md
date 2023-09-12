@@ -24,85 +24,82 @@ Testowo is a web application built using the MERN (MongoDB, Express.js, React.js
 
 1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/yourusername/testowo.git
-   Change directory to the project folder:
-   ```
+```
+git clone https://github.com/yourusername/testowo.git
+```
 
-Install server dependencies:
+2. Install server dependencies:
 
 ```
 npm install
 ```
 
-Install client dependencies:
+3. Install client dependencies:
 
 ```
+cd frontend
 npm install
 ```
 
-Create a .env file in the server directory with the following content and replace the values with your own:
+4. Create a .env file in the server directory with the following content and replace the values with your own:
 
 MONGODB_URI=your_mongodb_uri
 SECRET_KEY=your_secret_key
 
-Start the server:
+5. Start server and client in dev mode:
 
 ```
-npm start
+npm run dev
 ```
 
-Start the client:
+6. Open your web browser and access the application at http://localhost:3000.
 
-```
-npm start
-```
+## Usage
 
-Open your web browser and access the application at http://localhost:3000.
+1. Register for an account or log in if you already have one.
 
-Usage
-Register for an account or log in if you already have one.
+2. Once logged in, you can create a new test by clicking the "Create Test" button.
 
-Once logged in, you can create a new test by clicking the "Create Test" button.
+3. Fill in the details of your test, including questions, answer options, and the correct answer.
 
-Fill in the details of your test, including questions, answer options, and the correct answer.
+4. After creating a test, you can browse and enroll in tests created by other users from the homepage.
 
-After creating a test, you can browse and enroll in tests created by other users from the homepage.
+5. To take a test, click on the test card, and it will guide you through the questions.
 
-To take a test, click on the test card, and it will guide you through the questions.
+6. After completing a test, you will receive instant feedback on your performance.
 
-After completing a test, you will receive instant feedback on your performance.
+7. You can view your test history and scores on your profile page.
 
-You can view your test history and scores on your profile page.
+## Contributing
 
-Contributing
 We welcome contributions to Testowo! If you'd like to add new features, fix bugs, or improve the application in any way, please follow these steps:
 
-Fork the repository.
+1. Fork the repository.
 
-Create a new branch for your feature or bug fix:
-
-```
-out -b feature/your-feature-name
-```
-
-Make your changes and commit them:
+2. Create a new branch for your feature or bug fix:
 
 ```
-t -m "Add your feature or fix description"
+git checkout -b feature/your-feature-name
 ```
 
-Push your changes to your fork:
+3. Make your changes and commit them:
 
 ```
-origin feature/your-feature-name
+git commit -m "Add your feature or fix description"
 ```
 
-Create a pull request on the original repository, explaining your changes and their benefits.
+4. Push your changes to your fork:
 
-Your pull request will be reviewed, and once approved, it will be merged into the main branch.
+```
+git push origin feature/your-feature-name
+```
 
-License
+5. Create a pull request on the original repository, explaining your changes and their benefits.
+
+6. Your pull request will be reviewed, and once approved, it will be merged into the main branch.
+
+## License
+
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 Thank you for using Testowo! We hope you find it useful and enjoy using it as much as we enjoyed building it. Happy testing!
