@@ -1,3 +1,14 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Disallow: /login
+Disallow: /register
+Disallow: /profile/verify
+Disallow: /profile/settings
+Disallow: /admin/users/list
+Disallow: /admin/users/:id/edit
+Disallow: /admin/tests/list
+Disallow: /admin/tests/:id/questions
+Disallow: /admin/tests/:id/edit
+Disallow: /admin/tests/:id/questions/:qid/edit
+Disallow: /tests/:id/test
+Disallow: /tests/:id/test/check
