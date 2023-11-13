@@ -29,36 +29,33 @@ const EditQuestionScreen = () => {
   const [image, setImage] = useState("");
   const [correctAnswers, setCorrectAnswers] = useState([]);
   const [uploading, setUploading] = useState("");
-  const questionDetails = useSelector((state) => state.questionDetails);
-  const { loading, error, question } = questionDetails;
+  const { question } = useSelector((state) => state.questionDetails);
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-  const questionUpdate = useSelector((state) => state.questionUpdate);
-  const {
-    loading: loadingUpdate,
-    error: errorUpdate,
-    success: successUpdate,
-  } = questionUpdate;
+  const { success: successUpdate } = useSelector(
+    (state) => state.questionUpdate
+  );
 
-  const answerCreate = useSelector((state) => state.answerCreate);
-  let {
-    loading: loadingAnswer,
-    success: successAnswerCreate,
-    createdAnswer,
-  } = answerCreate;
+  let { success: successAnswerCreate, createdAnswer } = useSelector(
+    (state) => state.answerCreate
+  );
 
   useEffect(() => {
     if (successUpdate) {
+      // Dispatch action to reset successUpdate
       dispatch({ type: QUESTION_UPDATE_RESET });
+
+      // Navigate only after resetting successUpdate
       navigate(`/admin/tests/${testId}/questions/${questionId}/edit`);
     } else if (successAnswerCreate) {
-      // setAnswers(...answers, createdAnswer);
-      // dispatch({ type: QUESTION_UPDATE_RESET });
-      // dispatch({ type: ANSWER_CREATE_RESET });
+      // Dispatch action to reset successAnswerCreate
+      dispatch({ type: ANSWER_CREATE_RESET });
+
+      // Dispatch action to get question details
       dispatch(getQuestionDetails({ testId, questionId }));
     } else {
       if (!question || question._id !== questionId) {
-        // if question does not exist or if ids dont match
+        // if question does not exist or if ids don't match
         dispatch(getQuestionDetails({ testId, questionId }));
       } else {
         if (!answers.length) {
@@ -80,9 +77,16 @@ const EditQuestionScreen = () => {
     question,
     successAnswerCreate,
     answers,
-
     createdAnswer,
   ]);
+
+  const clearState = () => {
+    setContent("");
+    setExplanation("");
+    setAnswers([]);
+    setImage("");
+    setCorrectAnswers([]);
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -93,9 +97,10 @@ const EditQuestionScreen = () => {
         question: { content, image, answers, correctAnswers, explanation },
       })
     );
-    // dispatch({ type: ANSWER_CREATE_RESET });
-    // dispatch({ type: QUESTION_UPDATE_RESET });
-    // dispatch({ type: QUESTION_DETAILS_RESET });
+    // Clear the state after submitting the update
+    clearState();
+    // Reset other necessary flags or dispatches if needed
+    dispatch(getQuestionDetails({ testId, questionId }));
   };
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
@@ -122,18 +127,34 @@ const EditQuestionScreen = () => {
     dispatch(createAnswer({ testId, questionId }));
   };
 
-  const deleteAnswerHandler = (index, answer) => {
+  const deleteAnswerHandler = async (index, answer) => {
     if (window.confirm(`Confirm removing ${index}`)) {
-      dispatch(deleteAnswer({ testId, questionId, answerId: answer._id }));
-      const updatedAnswers = answers.filter((ans) => ans._id !== answer._id);
-      setAnswers(updatedAnswers);
-      const updatedCorrectAnswers = correctAnswers.filter(
-        (correctAnswer) => correctAnswer._id !== answer._id
-      );
-      setCorrectAnswers(updatedCorrectAnswers);
-      dispatch({ type: QUESTION_DETAILS_RESET });
+      try {
+        // Dispatch the deleteAnswer action
+        await dispatch(
+          deleteAnswer({ testId, questionId, answerId: answer._id })
+        );
+
+        // Update the local state after the deletion
+        const updatedAnswers = answers.filter((ans) => ans._id !== answer._id);
+        setAnswers(updatedAnswers);
+
+        const updatedCorrectAnswers = correctAnswers.filter(
+          (correctAnswer) => correctAnswer._id !== answer._id
+        );
+        setCorrectAnswers(updatedCorrectAnswers);
+
+        // Reset the question details after updating the state
+        dispatch({ type: QUESTION_DETAILS_RESET });
+
+        // Optional: You can navigate or perform other actions here if needed
+      } catch (error) {
+        // Handle any error that might occur during the deletion
+        console.error("Error deleting answer:", error);
+      }
     }
   };
+
   const handleAnswerChange = (index, value, answer) => {
     answer.answerText = value;
     const updatedAnswers = [...answers];
@@ -217,54 +238,55 @@ const EditQuestionScreen = () => {
             </div>
           </Form.Group>
 
-          {question.answers
-            ? question.answers.map((answer, index) => (
-                <Row key={answer._id}>
-                  <Col className="col-9 mx-auto">
-                    <Form.Group controlId={`answers`} className=" fs-5">
-                      <Form.Label>{t("answer") + " " + index}</Form.Label>
-                      <Form.Control
-                        className="fs-5 d-flex my-1"
-                        as="textarea"
-                        rows={4}
-                        placeholder={`${t("answer")} ${index}`}
-                        value={answers[index]?.answerText || ""}
-                        onChange={(e) =>
-                          handleAnswerChange(index, e.target.value, answer)
-                        }
-                      ></Form.Control>
-                      <div className="d-flex align-items-center justify-content-between">
-                        <div></div>
-                      </div>
-                    </Form.Group>
-                  </Col>
-                  <Col className="my-auto col-1 mx-auto">
-                    <div>
-                      <Button
-                        variant="outline-danger"
-                        className="btn-sm rounded"
-                        onClick={() => {
-                          deleteAnswerHandler(index, answer);
-                        }}
-                      >
-                        <i className="fas fa-trash big" />
-                      </Button>
-                      <Form.Check
-                        type="checkbox"
-                        label={t("correct")}
-                        checked={correctAnswers.some(
-                          (correctAnswer) => correctAnswer._id === answer._id
-                        )}
-                        onChange={(e) =>
-                          handleCorrectAnswers(answer, e.target.checked)
-                        }
-                      />
+          {/* Updated truthy check for rendering answers */}
+          {question.answers &&
+            question.answers.map((answer, index) => (
+              <Row key={answer._id}>
+                <Col className="col-9 mx-auto">
+                  <Form.Group controlId={`answers`} className=" fs-5">
+                    <Form.Label>{t("answer") + " " + index}</Form.Label>
+                    <Form.Control
+                      className="fs-5 d-flex my-1"
+                      as="textarea"
+                      rows={4}
+                      placeholder={`${t("answer")} ${index}`}
+                      value={answers[index]?.answerText || ""}
+                      onChange={(e) =>
+                        handleAnswerChange(index, e.target.value, answer)
+                      }
+                    ></Form.Control>
+                    <div className="d-flex align-items-center justify-content-between">
+                      <div></div>
                     </div>
-                  </Col>
-                  <hr></hr>
-                </Row>
-              ))
-            : ""}
+                  </Form.Group>
+                </Col>
+                <Col className="my-auto col-1 mx-auto">
+                  <div>
+                    <Button
+                      variant="outline-danger"
+                      className="btn-sm rounded"
+                      onClick={() => {
+                        deleteAnswerHandler(index, answer);
+                      }}
+                    >
+                      <i className="fas fa-trash big" />
+                    </Button>
+                    <Form.Check
+                      type="checkbox"
+                      label={t("correct")}
+                      checked={correctAnswers.some(
+                        (correctAnswer) => correctAnswer._id === answer._id
+                      )}
+                      onChange={(e) =>
+                        handleCorrectAnswers(answer, e.target.checked)
+                      }
+                    />
+                  </div>
+                </Col>
+                <hr></hr>
+              </Row>
+            ))}
+
           {explanation ? (
             <Row>
               <Form.Group controlId={`explanation`} className=" fs-5">
@@ -292,6 +314,7 @@ const EditQuestionScreen = () => {
             type="submit"
             variant="primary"
             className="text-center my-2 rounded"
+            onClick={submitHandler}
           >
             {t("update")}
           </Button>

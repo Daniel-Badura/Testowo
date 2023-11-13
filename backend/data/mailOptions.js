@@ -1,5 +1,15 @@
-export const setMailOptions = ({ from, to, subject, name, lastname, orderNumber, orderDate, orderItems, totalPrice }) => {
-    const html = `
+export const setMailOptions = ({
+  from,
+  to,
+  subject,
+  name,
+  lastname,
+  orderNumber,
+  orderDate,
+  orderItems,
+  totalPrice,
+}) => {
+  const html = `
         <style>
             body {
                 font-family: Arial, sans-serif;
@@ -49,7 +59,18 @@ export const setMailOptions = ({ from, to, subject, name, lastname, orderNumber,
                 <th>Items:</th>
                 <td>
                     <table>
-                        ${orderItems.map(item => "<tr><td>" + item.name + "</td><td>" + item.quantity + " x " + item.price + "€ </td></tr>").join('')}
+                        ${orderItems
+                          .map(
+                            (item) =>
+                              "<tr><td>" +
+                              item.name +
+                              "</td><td>" +
+                              item.quantity +
+                              " x " +
+                              item.price +
+                              "€ </td></tr>"
+                          )
+                          .join("")}
                     </table>
                 </td>
             </tr>
@@ -62,10 +83,10 @@ export const setMailOptions = ({ from, to, subject, name, lastname, orderNumber,
         <p class="note">Best regards,<br>Web-Sklep Team</p>
     `;
 
-    return {
-        from: from,
-        to: to,
-        subject: subject || 'Order Confirmation - Web-Sklep',
-        html: html
-    };
+  return {
+    from: from,
+    to: to,
+    subject: subject || "Order Confirmation - Web-Sklep",
+    html: html,
+  };
 };

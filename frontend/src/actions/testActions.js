@@ -28,10 +28,6 @@ import {
   CHECK_ANSWERS_SUCCESS,
   CHECK_ANSWERS_FAIL,
 } from "../constants/testConstants.js";
-import {
-  SUBMIT_ANSWERS_REQUEST,
-  SUBMIT_ANSWERS_SUCCESS,
-} from "../constants/questionConstants.js";
 
 export const listTests =
   (keyword = "", pageNumber = "") =>
